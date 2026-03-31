@@ -1,0 +1,23 @@
+# Fichiers système macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+
+# Fichiers d'éditeur
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Fichiers temporaires
+*.log
+*.tmp
+
+# Node modules (si vous en utilisez plus tard)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

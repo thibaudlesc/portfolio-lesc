@@ -1,0 +1,10 @@
+{
+  "name": "portfolio-thibaud",
+  "version": "1.0.0",
+  "description": "Portfolio professionnel de Thibaud Lescroart",
+  "private": true,
+  "scripts": {},
+  "keywords": ["portfolio", "wordpress", "static-site"],
+  "author": "Thibaud Lescroart",
+  "license": "MIT"
+}

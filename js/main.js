@@ -1,3 +1,81 @@
+// On importe le moteur WebGPU
+import * as THREE from 'three/webgpu';
+
+// On importe les fonctions TSL (fini le GLSL en string !)
+import { color, time, positionLocal, Fn, mix, uv } from 'three/tsl';
+
+
+const initWebGPU = async () => {
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100);
+    camera.position.z = 2;
+
+    // 1. Déclaration du nouveau Renderer
+    const renderer = new THREE.WebGPURenderer({ antialias: true, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    document.body.appendChild(renderer.domElement);
+
+    // 2. L'ÉTAPE CRUCIALE : Attendre l'initialisation du backend
+    await renderer.init(); 
+
+    return { scene, camera, renderer };
+};
+
+
+const createHoloMaterial = () => {
+    // On utilise un NodeMaterial
+    const material = new THREE.MeshBasicNodeMaterial({ transparent: true });
+
+    // On crée notre shader avec la fonction Fn()
+    material.colorNode = Fn(() => {
+        const uvCoord = uv(); // Récupère les coordonnées UV
+        
+        // On crée un effet de vague qui évolue avec le temps
+        const wave = uvCoord.x.add(time).sin().mul(0.5).add(0.5);
+        
+        // On mixe deux couleurs fluo
+        const color1 = color('#ff0055'); // Rose néon
+        const color2 = color('#00ffff'); // Cyan néon
+        
+        return mix(color1, color2, wave);
+    })();
+
+    return material;
+};
+
+const startApp = async () => {
+    const { scene, camera, renderer } = await initWebGPU();
+
+    // Ajout d'un mesh avec notre shader TSL
+    const geometry = new THREE.PlaneGeometry(2, 2, 32, 32);
+    const material = createHoloMaterial();
+    const plane = new THREE.Mesh(geometry, material);
+    scene.add(plane);
+
+    // Boucle d'animation
+    const animate = () => {
+        requestAnimationFrame(animate);
+        
+        // C'est ici que tu mettras `renderer.compute(tonComputeNode)` 
+        // juste avant le rendu visuel pour animer tes particules.
+        
+        renderer.render(scene, camera);
+    };
+
+    animate();
+    
+    // Gestion du redimensionnement
+    window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+};
+
+startApp();
+
+
 /**
  * Portfolio Thibaud Lescroart
  * Style éditorial minimaliste

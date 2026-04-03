@@ -3,8 +3,21 @@
   "version": "1.0.0",
   "description": "Portfolio professionnel de Thibaud Lescroart",
   "private": true,
-  "scripts": {},
-  "keywords": ["portfolio", "wordpress", "static-site"],
+  "type": "module",
+  "scripts": {
+    "test-gsap": "node js/gsap-setup.mjs"
+  },
+  "keywords": [
+    "portfolio",
+    "wordpress",
+    "static-site"
+  ],
   "author": "Thibaud Lescroart",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@clack/prompts": "^1.2.0",
+    "@gsap/react": "^2.1.2",
+    "gsap": "^3.14.2",
+    "picocolors": "^1.1.1"
+  }
 }

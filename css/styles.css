@@ -1103,6 +1103,16 @@ ul { list-style: none; }
     font-weight: 600;
 }
 
+.about-text a {
+    color: var(--accent-dark);
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+}
+
+.about-text a:hover {
+    color: var(--accent);
+}
+
 /* ============================================
    VIDEO
    ============================================ */

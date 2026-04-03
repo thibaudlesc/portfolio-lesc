@@ -1,0 +1,23 @@
+---
+description: Après chaque modification du site, pousser sur GitHub pour déployer Vercel
+alwaysApply: true
+---
+
+# Déploiement Vercel (portfolio statique)
+
+Ce dépôt est relié à **Vercel** : chaque **push sur `main`** déclenche un déploiement.
+
+## Obligation après modification
+
+Lorsque tu modifies des fichiers du site (`*.html`, `css/`, `js/`, `assets/` utiles au site, `vercel.json`, etc.) :
+
+1. Vérifier le diff (`git status`, `git diff`).
+2. `git add` uniquement les fichiers pertinents (ne pas ajouter de brouillons locaux : `.heic`, captures à la racine, `.DS_Store`, sauf demande explicite).
+3. `git commit -m "…"` avec un message en français, court et explicite.
+4. `git push origin main`.
+
+Si l’utilisateur a explicitement demandé de ne pas versionner ou de ne pas pousser, s’y conformer.
+
+## Si le push échoue
+
+Proposer de résoudre les conflits ou l’auth ; ne pas abandonner après une seule tentative.

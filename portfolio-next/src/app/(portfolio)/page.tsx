@@ -4,8 +4,8 @@ import { projects } from "@/data/projects";
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
 import { PhoneLiveApp } from "@/components/ui/PhoneLiveApp";
 
-// Ordre manuel : les plus complexes / impressionnants en premier
-const FEATURED_ORDER = ["lbc-alert", "ia-2048", "data-analyse", "musee-ba-bordeaux", "clip-bde", "strat-com"];
+// Ordre manuel : créa/MMI en premier, data/tech ensuite
+const FEATURED_ORDER = ["musee-ba-bordeaux", "clip-bde", "strat-com", "lbc-alert", "ia-2048", "data-analyse"];
 const featuredProjects = FEATURED_ORDER
   .map((s) => projects.find((p) => p.slug === s))
   .filter(Boolean) as typeof projects;
@@ -97,7 +97,7 @@ export default function Home() {
                   { label: "Firebase temps réel", detail: "posts, sondages et billets de soirée mis à jour en direct pour toute la promo." },
                 ].map(({ label, detail }) => (
                   <div key={label} className="flex items-start gap-3">
-                    <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)] mt-[0.45rem] shrink-0" />
+                    <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)] mt-1 shrink-0" />
                     <p className="text-sm text-[var(--color-muted)] leading-relaxed">
                       <span className="font-semibold text-[var(--color-text)]">{label}</span> — {detail}
                     </p>
@@ -157,7 +157,7 @@ export default function Home() {
                   { label: "Usage réel", detail: "adoptée par de vrais agriculteurs en exploitation, pas seulement un prototype." },
                 ].map(({ label, detail }) => (
                   <div key={label} className="flex items-start gap-3">
-                    <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)] mt-[0.45rem] shrink-0" />
+                    <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)] mt-1 shrink-0" />
                     <p className="text-sm text-[var(--color-muted)] leading-relaxed">
                       <span className="font-semibold text-[var(--color-text)]">{label}</span> — {detail}
                     </p>

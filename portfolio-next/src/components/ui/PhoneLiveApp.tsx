@@ -22,7 +22,7 @@ function iframeSrc(url: string) {
 export function PhoneLiveApp({ url = DEFAULT_DEMO_URL, label = "Maquette interactive" }: PhoneLiveAppProps) {
   const src = iframeSrc(url);
   return (
-    <div className="flex flex-col items-center gap-5 w-full py-2">
+    <div className="flex flex-col items-center gap-5 py-2">
       <div
         className="relative shadow-2xl shrink-0"
         style={{

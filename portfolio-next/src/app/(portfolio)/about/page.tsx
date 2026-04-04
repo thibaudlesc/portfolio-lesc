@@ -151,7 +151,7 @@ export default function AboutPage() {
             <h2 className="text-3xl font-bold" style={{ fontFamily: "var(--font-playfair)" }}>Ce que je maîtrise</h2>
           </RevealOnScroll>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
             {[
               { label: "Langages & frameworks", skills: langSkills },
               { label: "Création multimédia", skills: mediaSkills },
@@ -174,7 +174,7 @@ export default function AboutPage() {
             ))}
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
             {[
               { label: "Services & outils", skills: serviceSkills, cols: 4 },
               { label: "IA au quotidien", skills: aiSkills, cols: 4, accent: "secondary" },
@@ -276,9 +276,9 @@ export default function AboutPage() {
       </section>
 
       {/* ── Centres d'intérêt ── */}
-      <section className="section section--warm">
+      <section className="section section--warm" style={{ paddingBottom: "3rem" }}>
         <div className="container">
-          <RevealOnScroll className="mb-8">
+          <RevealOnScroll className="mb-6">
             <p className="text-sm font-semibold text-[var(--color-accent)] uppercase tracking-widest mb-2">— En dehors du code</p>
             <h2 className="text-3xl font-bold" style={{ fontFamily: "var(--font-playfair)" }}>Ce qui me ressource</h2>
           </RevealOnScroll>
@@ -295,7 +295,7 @@ export default function AboutPage() {
       </section>
 
       {/* ── CTA ── */}
-      <section className="section">
+      <section className="section" style={{ paddingTop: "3rem" }}>
         <div className="container text-center">
           <RevealOnScroll>
             <h2 className="text-3xl font-bold mb-4" style={{ fontFamily: "var(--font-playfair)" }}>

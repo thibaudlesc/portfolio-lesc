@@ -250,7 +250,7 @@ export default async function ProjectPage({ params }: Props) {
               )}
             </div>
             {/* Maquette + carousel côte à côte sur desktop, centré */}
-            <div className="flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-16">
+            <div className="flex flex-col lg:flex-row items-start justify-center gap-12 lg:gap-16">
               <PhoneLiveApp
                 url={slug === "bde-mmi" ? "/demo-bde-mmi/index.html" : undefined}
                 label={slug === "bde-mmi" ? "BDE MMI — démo interactive" : "Récolt'IQ — maquette interactive"}

@@ -249,7 +249,7 @@ export const projects: Project[] = [
     role:       ["Développeur Web"],
     stack:      ["Web", "Firebase", "HTML/CSS"],
     impact:     "Vitrine association en ligne",
-    coverImage: "/images/projects/bde-iq-cover.jpg",
+    coverImage: "/images/projects/bde-iq-cover.png",
     featured:   false,
     status:     "wip",
     links: {

@@ -1,23 +1,34 @@
 ---
-description: Après chaque modification du site, pousser sur GitHub pour déployer Vercel
+description: Après chaque modification, pousser sur main pour déployer Vercel (Next + statique)
 alwaysApply: true
 ---
 
-# Déploiement Vercel (portfolio statique)
+# Déploiement Vercel
 
-Ce dépôt est relié à **Vercel** : chaque **push sur `main`** déclenche un déploiement.
+Ce dépôt est relié à **Vercel**. Un **`git push origin main`** déclenche les builds configurés sur le dashboard.
 
-## Obligation après modification
+## Portfolio Next.js (prioritaire pour l’URL actuelle)
 
-Lorsque tu modifies des fichiers du site (`*.html`, `css/`, `js/`, `assets/` utiles au site, `vercel.json`, etc.) :
+**Production :** [https://portfolio-next-nine-alpha.vercel.app/](https://portfolio-next-nine-alpha.vercel.app/)
 
-1. Vérifier le diff (`git status`, `git diff`).
-2. `git add` uniquement les fichiers pertinents (ne pas ajouter de brouillons locaux : `.heic`, captures à la racine, `.DS_Store`, sauf demande explicite).
-3. `git commit -m "…"` avec un message en français, court et explicite.
-4. `git push origin main`.
+Sur Vercel, ce projet doit avoir **Root Directory** = `portfolio-next` et la branche **main**.
 
-Si l’utilisateur a explicitement demandé de ne pas versionner ou de ne pas pousser, s’y conformer.
+Après **toute** modification sous `portfolio-next/` (`src/`, `public/`, `package.json`, etc.) :
+
+1. `git status` / `git diff`
+2. `git add` les fichiers concernés — **jamais** `node_modules/`, `.next/`, `.heic` à la racine, sauf demande explicite
+3. `git commit -m "…"` (message en français, court)
+4. **`git push origin main`**
+
+## Site statique (racine du repo)
+
+Si tu modifies `*.html`, `css/`, `js/`, `assets/`, `vercel.json` pour l’ancien site à la racine : même enchaînement **add → commit → push**.  
+(Si un autre projet Vercel pointe sur la racine, il se mettra à jour aussi.)
 
 ## Si le push échoue
 
-Proposer de résoudre les conflits ou l’auth ; ne pas abandonner après une seule tentative.
+Résoudre conflits / auth ; ne pas abandonner après une seule tentative.
+
+## Rappel
+
+Sans **push**, [portfolio-next-nine-alpha.vercel.app](https://portfolio-next-nine-alpha.vercel.app/) **ne change pas** : le code doit être sur **GitHub** `main`.

@@ -5,7 +5,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test-gsap": "node js/gsap-setup.mjs"
+    "test-gsap": "node js/gsap-setup.mjs",
+    "build:next": "npm run build --prefix portfolio-next"
   },
   "keywords": [
     "portfolio",

@@ -1,0 +1,146 @@
+/* animations-landing-new.css */
+/* Fichier avec des animations modernes pour la page de présentation. */
+
+/* ========================================================================== */
+/* 1. Configuration de base
+/* ========================================================================== */
+
+/*
+ * Classe de base pour tous les éléments qui s'animeront au défilement.
+ * Ils sont initialement invisibles pour éviter un "flash" de contenu non stylé.
+*/
+.animo {
+  opacity: 0;
+}
+
+/*
+ * Une fois visible, l'élément est prêt à être animé.
+ * La classe d'animation spécifique lui sera ajoutée par JS.
+ * La transition sur l'opacité assure une apparition douce si JS est désactivé.
+*/
+.animo.is-visible {
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+/* ========================================================================== */
+/* 2. Keyframes des animations
+/* ========================================================================== */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 50px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translate3d(-60px, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translate3d(60px, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale3d(0.7, 0.7, 0.7);
+  }
+  to {
+    opacity: 1;
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+@keyframes pulse-cta {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.6);
+  }
+  70% {
+    transform: scale(1.03);
+    box-shadow: 0 0 0 20px rgba(22, 163, 74, 0);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(22, 163, 74, 0);
+  }
+}
+
+/* ========================================================================== */
+/* 3. Classes d'animation à appliquer
+/* ========================================================================== */
+
+/*
+ * Ces classes sont ajoutées par JavaScript pour déclencher l'animation.
+ * La propriété 'animation-fill-mode' garantit que l'élément conserve
+ * son état final après l'animation.
+*/
+.start-animation {
+  animation-duration: 0.8s;
+  animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  animation-fill-mode: both;
+}
+
+.animate-fadeInUp {
+  animation-name: fadeInUp;
+}
+
+.animate-fadeInLeft {
+  animation-name: fadeInLeft;
+}
+
+.animate-fadeInRight {
+  animation-name: fadeInRight;
+}
+
+.animate-zoomIn {
+  animation-name: zoomIn;
+  animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Plus élastique */
+}
+
+/* Animation de pulsation pour le CTA principal */
+.animate-pulse {
+  animation-name: pulse-cta;
+  animation-duration: 2.5s;
+  animation-timing-function: ease-out;
+  animation-iteration-count: infinite;
+  animation-delay: 1.5s !important; /* Commence après que le reste soit apparu */
+}
+
+
+/* ========================================================================== */
+/* 4. Effets de survol (Hover)
+/* ========================================================================== */
+
+/*
+ * Effet de survol pour les cartes (fonctionnalités, prix) et maquettes.
+ * Un léger décalage vers le haut et une ombre plus prononcée pour le feedback.
+*/
+.card-hover-effect {
+  transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.card-hover-effect:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+}

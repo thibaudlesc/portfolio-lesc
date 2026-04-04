@@ -1,0 +1,1 @@
+console.log("✅ Fichier debug.js CHARGÉ ET EXÉCUTÉ ! Si vous voyez ce message, le serveur fonctionne et le navigateur peut charger des fichiers JS.");

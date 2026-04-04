@@ -1,0 +1,42 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /field_files/{ownerId}/{fieldId}/{fileId} {
+
+      // --- Fonction d'aide pour vérifier une permission spécifique ('read' ou 'edit') ---
+      function hasPermission(permission) {
+        let docPath = /databases/$(database)/documents/users/$(ownerId)/fields/$(fieldId);
+        // On vérifie que le document existe ET que la permission correspond.
+        return exists(docPath) && get(docPath).data.get('accessControlMap', {}).get(request.auth.uid, '') == permission;
+      }
+
+      // --- Règles de sécurité ---
+
+      // LECTURE : autorisée si propriétaire, ou a la permission 'edit', ou a la permission 'read'.
+      allow get: if request.auth != null && (
+                    request.auth.uid == ownerId ||
+                    hasPermission('edit') ||
+                    hasPermission('read')
+                  );
+
+      // SUPPRESSION : autorisée si propriétaire OU a la permission 'edit'.
+      allow delete: if request.auth != null && (
+                      request.auth.uid == ownerId ||
+                      hasPermission('edit')
+                    );
+
+      // CRÉATION : autorisée si propriétaire OU a la permission 'edit', avec des contrôles sur le fichier.
+      allow create: if request.auth != null &&
+                      (
+                        request.auth.uid == ownerId ||
+                        hasPermission('edit')
+                      ) &&
+                      request.resource.size < 50 * 1024 * 1024 &&
+                      request.resource.contentType.matches('image/.*|video/.*|application/pdf');
+
+      // --- Interdiction des autres opérations ---
+      allow list, update: if false;
+    }
+  }
+}

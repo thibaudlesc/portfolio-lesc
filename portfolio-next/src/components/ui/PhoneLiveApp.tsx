@@ -38,6 +38,21 @@ export function PhoneLiveApp({ url = DEFAULT_DEMO_URL, label = "Maquette interac
           className="overflow-hidden bg-white"
           style={{ borderRadius: 14, width: FRAME_W, height: FRAME_H, position: "relative" }}
         >
+          {/* Dynamic Island */}
+          <div
+            style={{
+              position: "absolute",
+              top: 8,
+              left: "50%",
+              transform: "translateX(-50%)",
+              width: 72,
+              height: 20,
+              background: "#000",
+              borderRadius: 12,
+              zIndex: 10,
+              pointerEvents: "none",
+            }}
+          />
           <iframe
             src={src}
             title={label}

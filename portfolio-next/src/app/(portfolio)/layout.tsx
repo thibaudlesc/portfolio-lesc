@@ -1,14 +1,12 @@
 import { Nav } from "@/components/layout/Nav";
+import { Footer } from "@/components/layout/Footer";
 
-export default function PortfolioLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function PortfolioLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <Nav />
-      {children}
+      <div className="pt-16">{children}</div>
+      <Footer />
     </>
   );
 }

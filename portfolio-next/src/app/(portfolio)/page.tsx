@@ -2,42 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { projects } from "@/data/projects";
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
-import { PhoneCarousel } from "@/components/ui/PhoneCarousel";
 import { PhoneLiveApp } from "@/components/ui/PhoneLiveApp";
-
-const recoltiqScreens = [
-  { src: "/images/projects/recoltiq/C1.png", alt: "Récolt'IQ — Mes Parcelles" },
-  { src: "/images/projects/recoltiq/C2.png", alt: "Récolt'IQ — Stock" },
-  { src: "/images/projects/recoltiq/C3.png", alt: "Récolt'IQ — Détail" },
-  { src: "/images/projects/recoltiq/C4.png", alt: "Récolt'IQ — Finances" },
-  { src: "/images/projects/recoltiq/C5.png", alt: "Récolt'IQ — Partage" },
-];
-
-const bdeScreens = [
-  { src: "/images/projects/bde-mmi/C1.png", alt: "BDE MMI — Feed" },
-  { src: "/images/projects/bde-mmi/C2.png", alt: "BDE MMI — Calendrier" },
-  { src: "/images/projects/bde-mmi/C3.png", alt: "BDE MMI — Boutique" },
-  { src: "/images/projects/bde-mmi/C4.png", alt: "BDE MMI — Espace MMI" },
-  { src: "/images/projects/bde-mmi/C5.png", alt: "BDE MMI — Profil" },
-];
-
-const devSkills = [
-  { src: "/images/html-5.png",                label: "HTML5" },
-  { src: "/images/css-3.png",                 label: "CSS3" },
-  { src: "/images/JavaScript-logo.png",       label: "JavaScript" },
-  { src: "/images/python.png",                label: "Python" },
-  { src: "/images/skills/flutter.svg",        label: "Flutter" },
-  { src: "/images/skills/react.svg",          label: "React" },
-  { src: "/images/skills/firebase.svg",       label: "Firebase" },
-  { src: "/images/skills/github.svg",         label: "GitHub" },
-];
-
-const mediaSkills = [
-  { src: "/images/Adobe-Photoshop-Logo.png",       label: "Photoshop" },
-  { src: "/images/logo-premiere.png",              label: "Premiere Pro" },
-  { src: "/images/adobe-after-effects-logo-0.png", label: "After Effects" },
-  { src: "/images/excel-logo.png",                 label: "Excel" },
-];
 
 // Ordre manuel : les plus complexes / impressionnants en premier
 const FEATURED_ORDER = ["lbc-alert", "ia-2048", "data-analyse", "musee-ba-bordeaux", "clip-bde", "strat-com"];
@@ -67,7 +32,7 @@ export default function Home() {
                 <span className="w-2 h-2 rounded-full bg-[var(--color-accent)] animate-pulse" />
                 Étudiant BUT MMI · Bordeaux
               </div>
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] mb-6" style={{ fontFamily: "var(--font-playfair)" }}>
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.02] mb-6" style={{ fontFamily: "var(--font-playfair)", letterSpacing: "-0.03em" }}>
                 Développeur<br />
                 <em className="text-[var(--color-accent)] not-italic">&amp; Créateur</em> Multimédia
               </h1>
@@ -102,7 +67,7 @@ export default function Home() {
                 {/* Floating badge */}
                 <div className="absolute -bottom-4 -left-6 bg-white rounded-2xl shadow-lg px-4 py-2.5 flex items-center gap-2 border border-[var(--color-border)]">
                   <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                  <span className="text-sm font-semibold text-[var(--color-text)]">Open to work</span>
+                  <span className="text-sm font-semibold text-[var(--color-text)]">Alternance dès sept. 2026</span>
                 </div>
               </div>
             </RevealOnScroll>
@@ -111,7 +76,7 @@ export default function Home() {
       </section>
 
       {/* ── App BDE MMI showcase ───────────────────────────────────────────── */}
-      <section className="section" style={{ background: "linear-gradient(160deg, #faf9f6 0%, #f0ebff 100%)" }}>
+      <section className="section" style={{ background: "linear-gradient(160deg, var(--color-bg) 0%, var(--color-accent-secondary-light) 100%)" }}>
         <div className="container">
           <div className="flex flex-col lg:flex-row items-center gap-16">
             {/* Text */}
@@ -119,21 +84,23 @@ export default function Home() {
               <div className="inline-block bg-[var(--color-accent-light)] text-[var(--color-accent)] text-xs font-semibold px-3 py-1 rounded-full mb-5 border border-orange-200">
                 En ligne sur l&apos;App Store
               </div>
-              <h2 className="text-4xl md:text-5xl font-bold mb-5" style={{ fontFamily: "var(--font-playfair)" }}>
+              <h2 className="text-4xl md:text-5xl font-bold mb-5" style={{ fontFamily: "var(--font-playfair)", letterSpacing: "-0.02em", lineHeight: "1.1" }}>
                 App BDE MMI
               </h2>
               <p className="text-[var(--color-muted)] leading-relaxed mb-8 text-base">
                 Le produit phare de notre <strong>campagne électorale BDE</strong> — une app Flutter développée seul pour relier toute la promo MMI Montaigne, de A à Z.
               </p>
-              <div className="space-y-4 mb-10">
+              <div className="space-y-3 mb-10">
                 {[
-                  { icon: "✓", text: "Feed social — posts, événements, sondages en temps réel" },
-                  { icon: "✓", text: "Boutique intégrée — billets soirées, goodies, boissons" },
-                  { icon: "✓", text: "23 visuels de campagne Instagram pour accompagner le lancement" },
-                ].map(({ icon, text }) => (
-                  <div key={text} className="flex items-start gap-3">
-                    <span className="w-6 h-6 rounded-full bg-[var(--color-accent-light)] text-[var(--color-accent)] text-xs flex items-center justify-center mt-0.5 shrink-0 font-bold">{icon}</span>
-                    <span className="text-sm text-[var(--color-muted)] leading-relaxed">{text}</span>
+                  { label: "Conçue seul", detail: "app complète — feed social, boutique, agenda et profil. De zéro à l'App Store." },
+                  { label: "Publiée le jour du vote", detail: "avec 23 visuels Instagram créés en parallèle pour asseoir la campagne." },
+                  { label: "Firebase temps réel", detail: "posts, sondages et billets de soirée mis à jour en direct pour toute la promo." },
+                ].map(({ label, detail }) => (
+                  <div key={label} className="flex items-start gap-3">
+                    <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)] mt-[0.45rem] shrink-0" />
+                    <p className="text-sm text-[var(--color-muted)] leading-relaxed">
+                      <span className="font-semibold text-[var(--color-text)]">{label}</span> — {detail}
+                    </p>
                   </div>
                 ))}
               </div>
@@ -177,21 +144,23 @@ export default function Home() {
               <div className="inline-block bg-[var(--color-accent-light)] text-[var(--color-accent)] text-xs font-semibold px-3 py-1 rounded-full mb-5 border border-orange-200">
                 Mon premier vrai projet dev
               </div>
-              <h2 className="text-4xl md:text-5xl font-bold mb-5" style={{ fontFamily: "var(--font-playfair)" }}>
+              <h2 className="text-4xl md:text-5xl font-bold mb-5" style={{ fontFamily: "var(--font-playfair)", letterSpacing: "-0.02em", lineHeight: "1.1" }}>
                 Récolt&apos;IQ
               </h2>
               <p className="text-[var(--color-muted)] leading-relaxed mb-8 text-base">
                 App iOS pour les <strong>agriculteurs</strong> : suivi des récoltes, parcelles et finances en temps réel. De l&apos;idée à l&apos;App Store — seul, en 3 mois.
               </p>
-              <div className="space-y-4 mb-10">
+              <div className="space-y-3 mb-10">
                 {[
-                  { icon: "✓", text: "Offline-first — fonctionne sans réseau" },
-                  { icon: "✓", text: "Synchronisation automatique en arrière-plan" },
-                  { icon: "✓", text: "Utilisé par de vrais agriculteurs en exploitation" },
-                ].map(({ icon, text }) => (
-                  <div key={text} className="flex items-start gap-3">
-                    <span className="w-6 h-6 rounded-full bg-[var(--color-accent-light)] text-[var(--color-accent)] text-xs flex items-center justify-center mt-0.5 shrink-0 font-bold">{icon}</span>
-                    <span className="text-sm text-[var(--color-muted)] leading-relaxed">{text}</span>
+                  { label: "Solo, 3 mois", detail: "de l'idée à l'App Store — conception, dev, design et déploiement sans aide." },
+                  { label: "Offline-first", detail: "fonctionne en plein champ sans réseau, sync Firebase automatique dès que le signal revient." },
+                  { label: "Usage réel", detail: "adoptée par de vrais agriculteurs en exploitation, pas seulement un prototype." },
+                ].map(({ label, detail }) => (
+                  <div key={label} className="flex items-start gap-3">
+                    <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)] mt-[0.45rem] shrink-0" />
+                    <p className="text-sm text-[var(--color-muted)] leading-relaxed">
+                      <span className="font-semibold text-[var(--color-text)]">{label}</span> — {detail}
+                    </p>
                   </div>
                 ))}
               </div>
@@ -235,7 +204,7 @@ export default function Home() {
         <div className="container">
           <RevealOnScroll className="mb-12">
             <p className="text-sm font-semibold text-[var(--color-accent)] uppercase tracking-widest mb-2">— Réalisations</p>
-            <h2 className="text-4xl md:text-5xl font-bold" style={{ fontFamily: "var(--font-playfair)" }}>Projets récents</h2>
+            <h2 className="text-3xl md:text-4xl font-semibold text-[var(--color-text)]">Projets récents</h2>
           </RevealOnScroll>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -289,47 +258,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Compétences ─────────────────────────────────────────────────────── */}
-      <section className="section">
-        <div className="container">
-          <RevealOnScroll className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold" style={{ fontFamily: "var(--font-playfair)" }}>
-              Ce que je <em className="text-[var(--color-accent)]">fais</em>
-            </h2>
-            <p className="text-[var(--color-muted)] mt-3 max-w-md mx-auto">Une base technique pour enchaîner le web, le mobile, la data et le montage</p>
-          </RevealOnScroll>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {[
-              {
-                label: "Développement",
-                color: "var(--color-accent)",
-                skills: devSkills.slice(0, 6),
-              },
-              {
-                label: "Création multimédia",
-                color: "var(--color-accent)",
-                skills: mediaSkills,
-              },
-            ].map(({ label, skills, color }, gi) => (
-              <RevealOnScroll key={label} delay={gi * 100}>
-                <div className="card p-6">
-                  <p className="text-xs font-semibold uppercase tracking-widest mb-5" style={{ color }}>{label}</p>
-                  <div className="flex flex-wrap gap-3">
-                    {skills.map(({ src, label: l }) => (
-                      <div key={l} className="flex items-center gap-2 bg-[var(--color-warm)] border border-[var(--color-border)] rounded-xl px-3 py-2 cursor-default">
-                        <Image src={src} alt={l} width={20} height={20} className="object-contain w-5 h-5 shrink-0" />
-                        <span className="text-sm text-[var(--color-text)] font-medium">{l}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </RevealOnScroll>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ── À propos teaser ─────────────────────────────────────────────────── */}
       <section className="section section--warm">
         <div className="container">
@@ -341,7 +269,7 @@ export default function Home() {
                 </div>
                 <div className="flex-1">
                   <p className="text-sm font-semibold text-[var(--color-accent)] uppercase tracking-widest mb-3">— Qui suis-je ?</p>
-                  <h2 className="text-2xl md:text-3xl font-bold mb-4" style={{ fontFamily: "var(--font-playfair)" }}>
+                  <h2 className="text-xl md:text-2xl font-semibold mb-4 text-[var(--color-text)]">
                     Étudiant BUT MMI, plusieurs casquettes numériques
                   </h2>
                   <p className="text-[var(--color-muted)] leading-relaxed mb-6">
@@ -360,20 +288,6 @@ export default function Home() {
             </div>
           </RevealOnScroll>
 
-          {/* Stats */}
-          <RevealOnScroll delay={100} className="grid grid-cols-3 gap-4 mt-4">
-            {[
-              { n: "8+",  l: "Projets réalisés",    sub: "apps, sites, data, vidéo" },
-              { n: "5",   l: "Apps publiées",        sub: "sur App Store & web" },
-              { n: "BUT", l: "MMI Bordeaux",         sub: "Montaigne · 2023–2026" },
-            ].map(({ n, l, sub }) => (
-              <div key={l} className="text-center p-6 card">
-                <p className="text-3xl md:text-4xl font-bold text-[var(--color-accent)] mb-1" style={{ fontFamily: "var(--font-playfair)" }}>{n}</p>
-                <p className="text-sm font-semibold text-[var(--color-text)] mb-1">{l}</p>
-                <p className="text-xs text-[var(--color-muted)] hidden sm:block">{sub}</p>
-              </div>
-            ))}
-          </RevealOnScroll>
         </div>
       </section>
 

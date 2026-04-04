@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Installer Recolt'IQ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .tab-active {
+            background-color: white;
+            color: #16a34a; /* green-600 */
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+    <div class="min-h-screen flex flex-col items-center justify-center p-4 lg:p-8">
+        <div class="w-full max-w-lg mx-auto text-center">
+            
+            <img src="apple-touch-icon.png" alt="Recolt'IQ Logo" class="h-24 w-24 mx-auto mb-4">
+            
+            <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900">L'expérience Recolt'IQ, optimisée pour vous.</h1>
+            <p class="mt-3 text-lg text-slate-600 max-w-md mx-auto">Installez l'application sur votre écran d'accueil pour un accès instantané, des performances accrues et une utilisation hors-ligne fiable.</p>
+
+            <div class="mt-10 bg-white p-6 rounded-2xl shadow-lg border border-slate-200 w-full">
+                <div id="tabs" class="bg-slate-100 p-1 rounded-full grid grid-cols-2 gap-1 mb-6">
+                    <button id="tab-ios" class="tab-btn px-4 py-2 rounded-full font-semibold transition-all duration-300">iPhone / iPad</button>
+                    <button id="tab-android" class="tab-btn px-4 py-2 rounded-full font-semibold transition-all duration-300">Android</button>
+                </div>
+
+                <div id="instructions-container" class="text-left">
+                    <!-- Les instructions seront injectées ici -->
+                </div>
+            </div>
+
+            <div class="mt-8">
+                <a href="app.html" class="text-sm font-semibold text-slate-500 hover:text-green-700 transition-colors duration-300">
+                    Continuer sur le navigateur &rarr;
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabs = {
+                ios: document.getElementById('tab-ios'),
+                android: document.getElementById('tab-android')
+            };
+            const instructionsContainer = document.getElementById('instructions-container');
+            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+            const instructions = {
+                ios: `
+                    <div>
+                        <h2 class="font-bold text-xl mb-4 text-slate-800">Installer sur iPhone & iPad</h2>
+                        <ol class="list-decimal list-outside space-y-4 text-slate-700 pl-5">
+                            <li>Ouvrez ce site dans <strong>Safari</strong>.</li>
+                            <li>Appuyez sur l'icône de Partage <i data-lucide="share" class="inline-block w-5 h-5 -mt-1 text-blue-500"></i> dans la barre d'outils en bas de l'écran.</li>
+                            <li>Faites défiler la liste des options et sélectionnez <strong>"Sur l'écran d'accueil"</strong>.</li>
+                            <li>Confirmez en appuyant sur <strong>"Ajouter"</strong>. L'icône apparaîtra sur votre écran !</li>
+                        </ol>
+                    </div>
+                `,
+                android: `
+                    <div>
+                        <h2 class="font-bold text-xl mb-4 text-slate-800">Installer sur Android</h2>
+                        <ol class="list-decimal list-outside space-y-4 text-slate-700 pl-5">
+                            <li>Ouvrez ce site dans <strong>Chrome</strong>.</li>
+                            <li>Appuyez sur le menu <i data-lucide="more-vertical" class="inline-block w-5 h-5 -mt-1"></i> en haut à droite.</li>
+                            <li>Sélectionnez <strong>"Installer l'application"</strong> dans la liste.</li>
+                            <li>Suivez les instructions pour confirmer l'ajout à votre écran d'accueil.</li>
+                        </ol>
+                        <div class="mt-8 pt-6 border-t border-slate-200">
+                             <h3 class="font-semibold text-center text-slate-700 mb-3">Vous êtes sur mobile ?</h3>
+                             <p class="text-center text-sm text-slate-500 mb-4">Essayez notre application Bêta pour une expérience native.</p>
+                             <a href="recoltiq-beta.apk" download class="w-full bg-yellow-400 text-yellow-900 font-bold py-3 rounded-lg hover:bg-yellow-300 transition transform hover:scale-105 inline-flex items-center justify-center gap-3 shadow-sm">
+                                <i data-lucide="download"></i>
+                                <span>Télécharger l'APK (Bêta)</span>
+                            </a>
+                        </div>
+                    </div>
+                `
+            };
+
+            function setActiveTab(platform) {
+                Object.values(tabs).forEach(tab => tab.classList.remove('tab-active'));
+                if (tabs[platform]) {
+                    tabs[platform].classList.add('tab-active');
+                    instructionsContainer.innerHTML = instructions[platform];
+                    if (typeof lucide !== 'undefined') {
+                        lucide.createIcons();
+                    }
+                }
+            }
+
+            tabs.ios.addEventListener('click', () => setActiveTab('ios'));
+            tabs.android.addEventListener('click', () => setActiveTab('android'));
+
+            // Détection automatique et sélection de l'onglet par défaut
+            if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+                setActiveTab('ios');
+            } else {
+                setActiveTab('android');
+            }
+        });
+    </script>
+</body>
+</html>

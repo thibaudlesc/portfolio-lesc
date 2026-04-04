@@ -1,0 +1,115 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // --- Fonctions d'aide (identiques à votre version qui fonctionnait) ---
+    function isOwner(userId) {
+      return request.auth.uid == userId;
+    }
+
+    function hasReadAccess() {
+      return request.auth.uid in resource.data.get('accessControlUids', []);
+    }
+
+    function hasEditAccess() {
+      return resource.data.get('accessControlMap', {}).get(request.auth.uid, '') == 'edit';
+    }
+    
+    function isCollaboratorWithEditRights(ownerId) {
+        return exists(/databases/$(database)/documents/users/$(ownerId)/collaborators/$(request.auth.uid));
+    }
+
+    function isAcceptingShare() {
+      let before = resource.data;
+      let after = request.resource.data;
+      let selfUid = request.auth.uid;
+      let otherFieldsUnchanged = after.name == before.name && after.crop == before.crop && after.size == before.size && after.ownerId == before.ownerId;
+      let uidsBefore = before.get('accessControlUids', []);
+      let uidsAfter = after.get('accessControlUids', []);
+      let uidsLogic = uidsAfter.size() == uidsBefore.size() + 1 && uidsAfter.hasAll(uidsBefore) && uidsAfter.hasAny([selfUid]);
+      let mapBefore = before.get('accessControlMap', {});
+      let mapAfter = after.get('accessControlMap', {});
+      let mapLogic = mapAfter.size() == mapBefore.size() + 1 && selfUid in mapAfter && (mapAfter[selfUid] == 'read' || mapAfter[selfUid] == 'edit');
+      return otherFieldsUnchanged && uidsLogic && mapLogic;
+    }
+
+    function isAllowedCollaboratorEdit() {
+      let before = resource.data;
+      let after = request.resource.data;
+      let coreFieldsUnchanged = after.name == before.name &&
+                                after.crop == before.crop &&
+                                after.size == before.size &&
+                                after.ownerId == before.ownerId &&
+                                after.farmId == before.farmId &&
+                                after.accessControlUids == before.accessControlUids &&
+                                after.accessControlMap == before.accessControlMap;
+      return hasEditAccess() && coreFieldsUnchanged;
+    }
+
+    // --- Règles par Collection ---
+
+    // Règles générales (inchangées)
+    match /marketData/{commodityId} { allow read: if true; allow write: if false; }
+    match /shareTokens/{tokenId} { allow read, write, delete: if request.auth != null; }
+
+    // ▼▼▼ NOUVELLES RÈGLES INTÉGRÉES PROPREMENT ▼▼▼
+    match /reviews/{userId} {
+      allow read: if true;
+      allow create, update, delete: if request.auth != null && request.auth.uid == userId;
+    }
+    match /priceAlerts/{alertId} {
+      allow create: if request.auth != null && request.resource.data.userId == request.auth.uid;
+      allow read, update, delete: if request.auth != null && resource.data.userId == request.auth.uid;
+    }
+    // ▲▲▲ FIN DES NOUVELLES RÈGLES ▲▲▲
+    
+    // ▼▼▼ DÉBUT DE LA RESTAURATION DE LA LOGIQUE "fields" ▼▼▼
+    
+    // Règle globale pour la recherche de champs partagés
+    match /{path=**}/fields/{fieldId} {
+      allow read: if request.auth != null && (hasReadAccess() || hasEditAccess());
+      allow list: if request.auth != null;
+    }
+    
+    // Règles pour les données privées de chaque utilisateur
+    match /users/{userId} {
+      allow read: if request.auth != null;
+      allow write: if isOwner(userId);
+    
+      // Règles pour les sous-collections de l'utilisateur
+      
+      // Nouvelle sous-collection pour la configuration
+      match /config/{configId} {
+        allow read, write: if isOwner(userId);
+      }
+      
+      // Nouvelle sous-collection pour les prestations
+      match /clientServices/{serviceId} {
+        allow read, write, delete: if isOwner(userId);
+      }
+      
+      // Règles existantes pour les sous-collections
+      match /collaborators/{collaboratorId} { allow read: if request.auth != null; allow write, delete: if isOwner(userId) || request.auth.uid == collaboratorId; }
+      match /farms/{farmId} { allow read: if request.auth != null; allow write: if isOwner(userId); }
+      match /contacts/{contactId} { allow read, write, delete: if isOwner(userId); }
+      match /customCrops/{cropId} { allow read, write: if isOwner(userId); }
+      match /trailerNames/{trailerNameId} { allow read: if request.auth != null; allow write: if isOwner(userId); }
+      match /strawTrailerNames/{trailerId} { allow read: if request.auth != null; allow write: if isOwner(userId); }
+      match /truckNames/{truckNameId} { allow read, write: if isOwner(userId); }
+      match /exports/{exportId} { allow read: if request.auth != null; allow create: if (isOwner(userId) || isCollaboratorWithEditRights(userId)) && request.resource.data.exportedBy == request.auth.uid; allow update, delete: if isOwner(userId) || isCollaboratorWithEditRights(userId); }
+      match /sales/{saleId} { allow read, write, delete: if isOwner(userId); }
+      match /todos/{todoId} { allow read, write, delete: if isOwner(userId); }
+      match /vehicles/{vehicleId} { allow read, write, delete: if isOwner(userId); }
+      match /vehicles/{vehicleId}/maintenanceLog/{logId} { allow read, write, delete: if isOwner(userId); }
+      match /workHours/{entryId} { allow read, write, delete: if isOwner(userId); }
+      
+      // Règles spécifiques pour les champs de l'utilisateur
+      match /fields/{fieldId} {
+        allow get: if request.auth != null && (isOwner(userId) || hasReadAccess() || hasEditAccess());
+        allow create, delete: if request.auth != null && isOwner(userId);
+        allow update: if request.auth != null && (isOwner(userId) || isAcceptingShare() || isAllowedCollaboratorEdit());
+      }
+    }
+    // ▲▲▲ FIN DE LA RESTAURATION DE LA LOGIQUE "fields" ▲▲▲
+  }
+}

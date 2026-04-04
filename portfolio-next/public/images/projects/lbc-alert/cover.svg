@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <rect width="800" height="500" fill="#0f172a"/>
+  <!-- Grid -->
+  <line x1="0" y1="100" x2="800" y2="100" stroke="#1e293b" stroke-width="1"/>
+  <line x1="0" y1="200" x2="800" y2="200" stroke="#1e293b" stroke-width="1"/>
+  <line x1="0" y1="300" x2="800" y2="300" stroke="#1e293b" stroke-width="1"/>
+  <line x1="0" y1="400" x2="800" y2="400" stroke="#1e293b" stroke-width="1"/>
+  <line x1="160" y1="0" x2="160" y2="500" stroke="#1e293b" stroke-width="1"/>
+  <line x1="320" y1="0" x2="320" y2="500" stroke="#1e293b" stroke-width="1"/>
+  <line x1="480" y1="0" x2="480" y2="500" stroke="#1e293b" stroke-width="1"/>
+  <line x1="640" y1="0" x2="640" y2="500" stroke="#1e293b" stroke-width="1"/>
+  <!-- Terminal window -->
+  <rect x="80" y="60" width="640" height="380" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+  <!-- Title bar -->
+  <rect x="80" y="60" width="640" height="40" rx="12" fill="#334155"/>
+  <rect x="80" y="84" width="640" height="16" fill="#334155"/>
+  <circle cx="112" cy="80" r="6" fill="#ff5f57"/>
+  <circle cx="132" cy="80" r="6" fill="#febc2e"/>
+  <circle cx="152" cy="80" r="6" fill="#28c840"/>
+  <text x="400" y="85" text-anchor="middle" fill="#94a3b8" font-size="12" font-family="monospace">ShadowDeal — Bot actif</text>
+  <!-- Terminal content -->
+  <text x="108" y="128" fill="#22c55e" font-size="12" font-family="monospace">$ node src/index.js</text>
+  <text x="108" y="150" fill="#94a3b8" font-size="11" font-family="monospace">✓ Firebase connecté</text>
+  <text x="108" y="168" fill="#94a3b8" font-size="11" font-family="monospace">✓ Bot Telegram démarré</text>
+  <text x="108" y="186" fill="#94a3b8" font-size="11" font-family="monospace">✓ Scraping démarré (3 recherches actives)</text>
+  <text x="108" y="210" fill="#f59e0b" font-size="11" font-family="monospace">→ RTX 4070 — 320€ — Bordeaux</text>
+  <text x="108" y="228" fill="#94a3b8" font-size="11" font-family="monospace">  Gemini analyse... marge estimée +48%</text>
+  <text x="108" y="246" fill="#22c55e" font-size="11" font-family="monospace">  🔥 PÉPITE détectée — alerte Telegram envoyée</text>
+  <text x="108" y="268" fill="#f59e0b" font-size="11" font-family="monospace">→ MacBook Pro M1 — 780€ — Mérignac</text>
+  <text x="108" y="286" fill="#94a3b8" font-size="11" font-family="monospace">  Gemini analyse... marge estimée +22%</text>
+  <text x="108" y="304" fill="#94a3b8" font-size="11" font-family="monospace">  → Alerte standard envoyée</text>
+  <text x="108" y="330" fill="#64748b" font-size="11" font-family="monospace">Prochaine vérification dans 4 min 12 sec...</text>
+  <!-- Cursor -->
+  <rect x="108" y="352" width="8" height="16" fill="#22c55e" opacity="0.8"/>
+  <!-- Status badges -->
+  <rect x="108" y="390" width="90" height="24" rx="4" fill="#166534"/>
+  <text x="153" y="407" text-anchor="middle" fill="#22c55e" font-size="10" font-family="monospace">● actif</text>
+  <rect x="210" y="390" width="130" height="24" rx="4" fill="#1e3a5f"/>
+  <text x="275" y="407" text-anchor="middle" fill="#60a5fa" font-size="10" font-family="monospace">IA: Gemini 1.5</text>
+  <rect x="352" y="390" width="120" height="24" rx="4" fill="#3b1f1f"/>
+  <text x="412" y="407" text-anchor="middle" fill="#f87171" font-size="10" font-family="monospace">Playwright stealth</text>
+</svg>

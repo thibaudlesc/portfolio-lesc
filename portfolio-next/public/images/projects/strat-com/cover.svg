@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <defs>
+    <linearGradient id="ig" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f9ce34"/>
+      <stop offset="30%" style="stop-color:#ee2a7b"/>
+      <stop offset="70%" style="stop-color:#6228d7"/>
+      <stop offset="100%" style="stop-color:#3051f1"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="#fafafa"/>
+  <!-- Background blobs -->
+  <circle cx="150" cy="150" r="200" fill="#f9ce34" opacity="0.08"/>
+  <circle cx="650" cy="350" r="200" fill="#ee2a7b" opacity="0.08"/>
+  <circle cx="400" cy="400" r="150" fill="#6228d7" opacity="0.06"/>
+  <!-- Instagram logo mockup -->
+  <rect x="330" y="120" width="140" height="140" rx="35" fill="url(#ig)"/>
+  <rect x="350" y="140" width="100" height="100" rx="25" fill="none" stroke="white" stroke-width="8"/>
+  <circle cx="400" cy="190" r="22" fill="none" stroke="white" stroke-width="7"/>
+  <circle cx="435" cy="155" r="7" fill="white"/>
+  <!-- Stats -->
+  <rect x="100" y="320" width="160" height="80" rx="12" fill="white" filter="url(#shadow)"/>
+  <text x="180" y="355" text-anchor="middle" fill="#ee2a7b" font-size="24" font-weight="bold" font-family="sans-serif">4.2k</text>
+  <text x="180" y="380" text-anchor="middle" fill="#6b7280" font-size="12" font-family="sans-serif">abonnés</text>
+  <rect x="320" y="300" width="160" height="80" rx="12" fill="white"/>
+  <text x="400" y="335" text-anchor="middle" fill="#6228d7" font-size="24" font-weight="bold" font-family="sans-serif">38</text>
+  <text x="400" y="360" text-anchor="middle" fill="#6b7280" font-size="12" font-family="sans-serif">publications</text>
+  <rect x="540" y="320" width="160" height="80" rx="12" fill="white"/>
+  <text x="620" y="355" text-anchor="middle" fill="#f9ce34" font-size="24" font-weight="bold" font-family="sans-serif" fill="#e8693a">12%</text>
+  <text x="620" y="380" text-anchor="middle" fill="#6b7280" font-size="12" font-family="sans-serif">engagement</text>
+  <!-- Label -->
+  <text x="400" y="430" text-anchor="middle" fill="#1a1816" font-size="14" font-weight="bold" font-family="sans-serif">@bdedetoutlemonde</text>
+  <text x="400" y="455" text-anchor="middle" fill="#6b7280" font-size="11" font-family="sans-serif">Stratégie de communication · BDE MMI Montaigne</text>
+</svg>

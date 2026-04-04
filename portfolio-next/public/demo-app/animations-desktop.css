@@ -1,0 +1,93 @@
+/* animations-desktop.css */
+/* Ce fichier contient des animations douces et professionnelles pour la version PC. */
+
+/* --- KEYFRAMES (Définitions des animations) --- */
+
+/* Apparition en fondu et léger zoom pour les modales */
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Glissement subtil depuis le bas pour le contenu de la page */
+@keyframes subtleSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- STYLES D'ANIMATION (uniquement sur PC) --- */
+@media (min-width: 1024px) {
+
+    /* Transition de base pour tous les éléments pour des changements fluides */
+    * {
+        transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    }
+
+    /* Animation de la barre latérale au chargement */
+    #app-nav {
+        animation: fadeIn 0.5s ease-out;
+    }
+
+    /* Animation d'apparition en cascade pour les éléments de la barre latérale */
+    #app-nav .nav-btn,
+    #desktop-sidebar-footer > div {
+        animation: subtleSlideUp 0.5s ease-out backwards;
+    }
+
+    /* Délais pour l'effet de cascade */
+    #app-nav .nav-btn:nth-child(1) { animation-delay: 0.1s; }
+    #app-nav .nav-btn:nth-child(2) { animation-delay: 0.15s; }
+    #app-nav .nav-btn:nth-child(3) { animation-delay: 0.2s; }
+    #app-nav .nav-btn:nth-child(4) { animation-delay: 0.25s; }
+    #desktop-sidebar-footer > div:nth-of-type(1) { animation-delay: 0.3s; }
+    #desktop-sidebar-footer > div:nth-of-type(2) { animation-delay: 0.35s; }
+
+    /* Animation douce pour le contenu principal lors du changement de page */
+    main.flex-1 > div > div:not(.hidden) {
+       animation: subtleSlideUp 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Effet de survol sur les boutons de la barre latérale */
+    #app-nav .nav-btn:not(.active):hover i {
+        transform: translateX(2px);
+        transition: transform 0.2s ease-in-out;
+    }
+    #app-nav .nav-btn:not(.active):hover span {
+        transform: translateX(4px);
+        transition: transform 0.2s ease-in-out;
+    }
+
+    /* Animation de la modale sur PC */
+    #modal-container:not(.hidden) #modal-content {
+         animation: fadeInScale 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+
+    /* Animation pour les notifications "Toast" sur PC */
+    #toast:not(.hidden) {
+        animation: subtleSlideUp 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+
+    /* Effet de clic plus prononcé sur les boutons */
+    button:active, .btn:active {
+        transform: scale(0.96);
+        transition: transform 0.1s ease;
+    }
+
+    /* Animation de focus plus douce pour les champs de formulaire */
+    input:focus, select:focus {
+        border-color: #22c55e; /* green-500 */
+        box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2);
+    }
+}

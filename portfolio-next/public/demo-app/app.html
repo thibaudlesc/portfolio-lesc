@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    
+    <title>Recolt'IQ - Application</title>
+
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="apple-touch-icon.png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#16a34a">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Fichiers de style -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Shepherd.js pour la visite guidée -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shepherd.js@10.0.1/dist/css/shepherd.css"/>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
+
+</head>
+<body class="antialiased text-slate-800 bg-slate-50" onload="console.log('✅ Événement onload du BODY déclenché !')">
+
+    <div id="loading-screen" class="fixed inset-0 bg-white z-[100] flex flex-col items-center justify-center transition-opacity duration-500">
+        <img src="apple-touch-icon.png" alt="Logo Recolt'IQ" class="w-24 h-24 mb-4 animate-pulse">
+        <p class="text-xl font-bold text-green-600">Recolt'IQ</p>
+    </div>
+
+    <div id="auth-view" class="hidden">
+        <main>
+            <section id="auth-page">
+                <div id="auth-container" class="flex items-center justify-center min-h-screen bg-slate-50 px-4 py-8">
+                    <div class="w-full max-w-sm">
+                        <div id="login-form" class="bg-white p-6 rounded-2xl shadow-md space-y-4 border border-slate-200">
+                            <h2 class="text-2xl font-bold text-center text-slate-800">Connexion</h2>
+                            <p class="text-center text-slate-500 text-sm">Veuillez vous connecter avec votre compte Recolt'IQ.</p>
+                            <p id="auth-message" class="text-blue-600 text-sm text-center hidden"></p>
+                            <p id="login-error" class="text-red-500 text-sm text-center hidden"></p>
+                            
+                            <form id="login" class="space-y-4 pt-4">
+                                <input type="email" id="login-email" required placeholder="Adresse Mail" class="w-full p-3 bg-slate-100 border-2 border-transparent rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition">
+                                <input type="password" id="login-password" required placeholder="Mot de passe" class="w-full p-3 bg-slate-100 border-2 border-transparent rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition">
+                                <button type="submit" class="w-full bg-green-600 text-white font-bold py-3 rounded-lg hover:bg-green-700 transition-all shadow">Se connecter</button>
+                            </form>
+                            <div class="text-center text-sm space-y-2">
+                                <p class="text-slate-600">
+                                    <a href="#" data-action="forgot-password" class="font-medium text-green-600 hover:underline">Mot de passe oublié ?</a>
+                                </p>
+                                <p class="text-slate-600">
+                                    Pas de compte ? <a href="#" data-action="show-signup-form" class="font-medium text-green-600 hover:underline">S'inscrire</a>
+                                </p>
+                            </div>
+                        </div>
+                        <div id="signup-form" class="hidden bg-white p-6 rounded-2xl shadow-md space-y-4 border border-slate-200">
+                             <h2 class="text-2xl font-bold text-center text-slate-800">Créer un compte</h2>
+                            <p id="signup-error" class="text-red-500 text-sm text-center hidden"></p>
+                            <form id="signup" class="space-y-4 mt-6">
+                                <input type="text" id="signup-name" required placeholder="Prénom ou Nom" class="w-full p-3 bg-slate-100 border-2 border-transparent rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition">
+                                <input type="email" id="signup-email" required placeholder="Adresse Mail" class="w-full p-3 bg-slate-100 border-2 border-transparent rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition">
+                                <input type="password" id="signup-password" required placeholder="Mot de passe" class="w-full p-3 bg-slate-100 border-2 border-transparent rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition">
+                                <div class="pt-2">
+                                    <label for="terms-checkbox" class="flex items-start">
+                                        <input type="checkbox" id="terms-checkbox" class="h-5 w-5 rounded border-gray-300 text-green-600 focus:ring-green-500 mt-0.5">
+                                        <span class="ml-3 text-sm text-slate-600">
+                                            J'accepte les <a href="#" data-action="show-legal" data-target="cgu" class="font-medium text-green-600 hover:underline">Conditions Générales d'Utilisation</a>.
+                                        </span>
+                                    </label>
+                                </div>
+                                <button type="submit" class="w-full bg-green-600 text-white font-bold py-3 rounded-lg hover:bg-green-700 transition-all shadow">Créer le compte</button>
+                            </form>
+                            <p class="text-center text-sm text-slate-600 mt-4">Déjà un compte ? <a href="#" data-action="show-login-form" class="font-medium text-green-600 hover:underline">Se connecter</a></p>
+                        </div>
+                        <div id="verification-container" class="hidden bg-white p-6 rounded-2xl shadow-md space-y-4 border border-slate-200 text-center">
+                            <h2 class="text-2xl font-bold text-slate-800">Vérifiez votre e-mail</h2>
+                            <div id="verification-message" class="text-slate-600 text-sm"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div id="app-view" class="hidden lg:flex h-screen bg-slate-50 overflow-hidden">
+        <nav id="app-nav" class="hidden lg:flex lg:flex-col lg:justify-between lg:border-r lg:border-slate-200 lg:p-4 lg:w-[260px] lg:shrink-0 bg-white overflow-y-auto">
+            <div>
+                <div class="sidebar-header hidden lg:block lg:mb-6">
+                    <a href="/app.html" data-action="show-app" class="flex flex-col items-center justify-center gap-2 p-4 bg-gradient-to-br from-green-50 to-green-100 rounded-xl border border-green-200 transition-transform duration-300 hover:scale-105 hover:shadow-lg">
+                        <img src="apple-touch-icon.png" alt="Logo" class="h-12 w-12 rounded-lg">
+                        <span class="text-2xl font-extrabold gradient-text">Recolt'IQ</span>
+                    </a>
+                </div>
+                <button id="weather-widget-desktop" class="hidden lg:block text-center text-sm text-slate-600 p-2 bg-slate-100 rounded-lg w-full"></button>
+                
+                <!-- ▼▼▼ DÉBUT DE LA MODIFICATION : Réorganisation des boutons de navigation principaux ▼▼▼ -->
+                <div id="main-nav-links-container" class="flex lg:flex-col lg:gap-2 w-full justify-around lg:justify-start lg:mt-4">
+                    <button data-action="show-dashboard" id="nav-dashboard" class="nav-btn flex items-center lg:gap-3 p-2 text-slate-500" title="Tableau de Bord" aria-label="Tableau de Bord"><i data-lucide="layout-dashboard" class="w-7 h-7 lg:w-5 lg:h-5"></i><span class="hidden lg:inline">Tableau de Bord</span></button>
+                    <button data-action="show-fields" id="nav-fields" class="nav-btn flex items-center lg:gap-3 p-2 text-green-600 active" title="Mes Parcelles" aria-label="Mes Parcelles"><i data-lucide="wheat" class="w-7 h-7 lg:w-5 lg:h-5"></i><span class="hidden lg:inline">Mes Parcelles</span></button>
+                    <button data-action="show-storage" id="nav-storage" class="nav-btn flex items-center lg:gap-3 p-2 text-slate-500" title="Mon Stockage" aria-label="Mon Stockage"><i data-lucide="warehouse" class="w-7 h-7 lg:w-5 lg:h-5"></i><span class="hidden lg:inline">Mon Stockage</span></button>
+                    <button data-action="show-market" id="nav-sales" class="nav-btn flex items-center lg:gap-3 p-2 text-slate-500" title="Mes Ventes" aria-label="Mes Ventes"><i data-lucide="dollar-sign" class="w-7 h-7 lg:w-5 lg:h-5"></i><span class="hidden lg:inline">Mes Ventes</span></button>
+                    <button data-action="show-shared-fields" id="nav-shared-fields" class="nav-btn flex items-center lg:gap-3 p-2 text-slate-500" title="Parcelles partagées" aria-label="Parcelles partagées"><i data-lucide="users" class="w-7 h-7 lg:w-5 lg:h-5"></i><span class="hidden lg:inline">Parcelles partagées</span></button>
+                    <!-- Le bouton "Utilitaires" a été déplacé ici pour être inclus dans la barre mobile -->
+                    <button data-action="show-utilities" id="nav-utilities" class="nav-btn flex items-center lg:gap-3 p-2 text-slate-500" title="Utilitaires" aria-label="Utilitaires"><i data-lucide="wrench" class="w-7 h-7 lg:w-5 lg:h-5"></i><span class="hidden lg:inline">Utilitaires</span></button>
+                </div>
+
+                <div class="hidden lg:flex lg:flex-col lg:gap-2 w-full">
+                    <div class="border-t border-slate-200 my-2"></div>
+                    <!-- Le bouton "Mes Partages" est maintenant ici, il n'apparaîtra plus dans la barre mobile -->
+                    <button data-action="show-my-shares" id="nav-my-shares" class="nav-btn flex items-center lg:gap-3 p-2 text-slate-500" title="Mes Partages" aria-label="Mes Partages"><i data-lucide="share-2" class="w-7 h-7 lg:w-5 lg:h-5"></i><span class="hidden lg:inline">Mes Partages</span></button>
+                </div>
+                <!-- ▲▲▲ FIN DE LA MODIFICATION ▲▲▲ -->
+            </div>
+
+            <div id="desktop-sidebar-footer" class="hidden lg:block w-full">
+                <div id="user-menu-loggedin" class="hidden">
+                    <div class="pt-4 border-t border-slate-200">
+                        <div class="flex items-center gap-3 mb-4 px-3">
+                            <div id="user-avatar-initials" class="h-10 w-10 bg-slate-200 rounded-full flex items-center justify-center text-slate-600 font-bold shrink-0"></div>
+                            <div class="min-w-0">
+                                <p id="user-avatar-name" class="font-semibold text-sm text-slate-800 truncate">Utilisateur</p>
+                                <p id="user-avatar-email" class="text-xs text-slate-500 truncate">email@example.com</p>
+                            </div>
+                        </div>
+                        <a href="#" data-action="show-account" class="flex items-center gap-3 w-full text-left py-2 px-3 text-sm text-slate-700 hover:bg-slate-100 rounded-md transition-colors"><i data-lucide="user-circle-2" class="w-5 h-5"></i><span>Mon Compte</span></a>
+                        <a href="#" data-action="show-review-modal" class="flex items-center gap-3 w-full text-left py-2 px-3 text-sm text-slate-700 hover:bg-slate-100 rounded-md transition-colors"><i data-lucide="star" class="w-5 h-5"></i><span>Donner mon avis</span></a>
+                        <a href="#" data-action="show-contacts" class="flex items-center gap-3 w-full text-left py-2 px-3 text-sm text-slate-700 hover:bg-slate-100 rounded-md transition-colors"><i data-lucide="contact" class="w-5 h-5"></i><span>Mes Contacts</span></a>
+                        <a href="#" data-action="show-support" class="flex items-center gap-3 w-full text-left py-2 px-3 text-sm text-slate-700 hover:bg-slate-100 rounded-md transition-colors"><i data-lucide="life-buoy" class="w-5 h-5"></i><span>Support</span></a>
+                        <button data-action="logout" id="desktop-logout-btn" class="flex items-center gap-3 w-full text-left py-2 px-3 text-sm text-red-600 hover:bg-red-50 rounded-md transition-colors"><i data-lucide="log-out" class="w-5 h-5"></i><span>Déconnexion</span></button>
+                    </div>
+                </div>
+                <div id="user-menu-loggedout" class="hidden">
+                    <div class="pt-4 border-t border-slate-200">
+                         <a href="#" data-action="show-auth" class="flex items-center gap-3 w-full text-left py-2 px-3 text-sm font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-md transition-colors"><i data-lucide="log-in" class="w-5 h-5"></i><span>Connexion / Inscription</span></a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <main class="flex-1 overflow-y-auto">
+            <header id="main-header" class="bg-white/80 backdrop-blur-sm fixed top-0 z-40 border-b border-slate-200 lg:hidden w-full">
+                <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+                    <div class="flex items-center">
+                        <a href="/app.html" data-action="show-app" class="font-extrabold text-2xl text-green-600" aria-label="Accueil Recolt'IQ">Recolt'IQ</a>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button id="weather-widget-mobile" class="text-sm text-slate-600 mr-2"></button>
+                        <div class="relative">
+                            <button data-action="toggle-mobile-menu" id="mobile-menu-button" class="p-2 rounded-md text-slate-600 hover:bg-slate-100" aria-label="Ouvrir le menu"><i data-lucide="menu"></i></button>
+                            <!-- ▼▼▼ DÉBUT DE LA MODIFICATION : Mise à jour du menu hamburger ▼▼▼ -->
+                            <div id="mobile-menu" class="hidden absolute right-0 mt-2 w-56 bg-white rounded-md shadow-lg py-1 z-50">
+                                <a href="#" data-action="show-app" id="mobile-nav-link-app" class="block py-2 px-4 text-sm text-slate-700 hover:bg-slate-100 hidden">Mon Espace</a>
+                                <div class="border-t border-slate-200 my-1"></div>
+                                <a href="#" data-action="show-dashboard" id="mobile-nav-link-dashboard" class="block py-2 px-4 text-sm text-slate-700 hover:bg-slate-100 hidden">Tableau de bord</a>
+                                <a href="#" data-action="show-account" id="mobile-nav-link-account" class="block py-2 px-4 text-sm text-slate-700 hover:bg-slate-100 hidden">Mon Compte</a>
+                                <!-- Le lien "Mes Partages" est maintenant ici -->
+                                <a href="#" data-action="show-my-shares" id="mobile-nav-link-my-shares" class="block py-2 px-4 text-sm text-slate-700 hover:bg-slate-100 hidden">Mes Partages</a>
+                                <a href="#" data-action="show-review-modal" class="block py-2 px-4 text-sm text-slate-700 hover:bg-slate-100 hidden">Donner mon avis</a>
+                                <a href="#" data-action="show-contacts" id="mobile-nav-link-contacts" class="block py-2 px-4 text-sm text-slate-700 hover:bg-slate-100 hidden">Mes Contacts</a>
+                                <!-- Le lien "Utilitaires" a été supprimé d'ici -->
+                                <a href="#" data-action="show-support" id="mobile-nav-link-support" class="block py-2 px-4 text-sm text-slate-700 hover:bg-slate-100 hidden">Support</a>
+                                <a href="#" data-action="show-auth" id="nav-link-login" class="block w-full text-left py-2 px-4 text-sm text-slate-700 hover:bg-slate-100">Connexion</a>
+                                <button data-action="logout" id="mobile-logout-btn" class="hidden w-full text-left py-2 px-4 text-sm text-red-600 hover:bg-red-50">Déconnexion</button>
+                            </div>
+                            <!-- ▲▲▲ FIN DE LA MODIFICATION ▲▲▲ -->
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div id="app-content-wrapper">
+                <div id="page-financial-summary" class="page-content-mobile-full hidden lg:p-10 flex flex-col"></div>
+                <div id="page-dashboard" class="page-content-mobile-full hidden"></div>
+                <div id="page-received-hours" class="page-content-mobile-full hidden lg:p-10 flex flex-col"></div>
+                <div id="page-received-hours" class="page-content-mobile-full hidden lg:p-10 flex flex-col"></div>
+                
+                <div id="page-field-list" class="page-content-mobile-full lg:p-10 flex flex-col">
+                    <header class="bg-white/80 backdrop-blur-sm sticky top-0 z-20 p-4 border-b border-slate-200 flex justify-between items-center lg:static lg:bg-transparent lg:p-0 lg:border-b lg:pb-6">
+                        <h1 class="text-2xl lg:text-3xl font-bold text-slate-800">Mes Parcelles</h1>
+                        <div class="flex items-center gap-2">
+                            <button id="nav-export" class="secondary-action-btn" title="Exporter"><i data-lucide="download" class="h-5 w-5"></i><span class="hidden md:inline">Exporter</span></button>
+                            <button id="share-filtered-btn" class="secondary-action-btn" title="Co-Working"><i data-lucide="share-2" class="h-5 w-5"></i><span class="hidden md:inline">Co-Working</span></button>
+                            <button id="financial-summary-btn" class="secondary-action-btn" title="Statistiques"><i data-lucide="bar-chart-2" class="h-5 w-5"></i><span class="hidden md:inline">Synthèse</span></button>
+                            <button id="add-field-btn" class="primary-action-btn" title="Ajouter une parcelle"><i data-lucide="plus" class="h-5 w-5"></i><span class="hidden md:inline">Ajouter</span></button>
+                        </div>
+                    </header>
+
+                    <div class="p-4 lg:p-0 lg:mt-6">
+                        <div class="control-panel bg-white p-4 rounded-xl shadow-sm border border-slate-200 space-y-4">
+                            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+                                <div class="flex-1">
+                                    <label class="text-xs font-medium text-slate-500">Ferme actuelle :</label>
+                                    <div class="flex justify-between items-center">
+                                        <p id="current-farm-display" class="font-semibold text-lg text-slate-800 truncate">Toutes les fermes</p>
+                                        <button id="change-farm-btn" class="p-2 bg-blue-100 text-blue-700 text-xs font-semibold rounded-lg hover:bg-blue-200 transition shadow-sm flex items-center gap-1.5 shrink-0"><i data-lucide="arrow-right-left" class="h-4 w-4"></i><span class="hidden sm:inline">Changer</span></button>
+                                    </div>
+                                </div>
+                                <div class="hidden sm:block border-l border-slate-200 h-10 self-center mx-4"></div>
+                                <div class="flex justify-center items-center gap-4">
+                                    <button id="prev-year-btn" class="p-2 rounded-full hover:bg-slate-200 transition" aria-label="Année précédente"><i data-lucide="chevron-left"></i></button>
+                                    <span id="current-year-display" class="text-2xl font-bold text-slate-800 w-28 text-center"></span>
+                                    <button id="next-year-btn" class="p-2 rounded-full hover:bg-slate-200 transition" aria-label="Année suivante"><i data-lucide="chevron-right"></i></button>
+                                </div>
+                            </div>
+
+                            <div class="border-t border-slate-100 pt-4 space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <label for="hide-finished-own-toggle" class="text-sm font-semibold text-slate-700">Masquer les parcelles terminées</label>
+                                    <input type="checkbox" id="hide-finished-own-toggle" class="toggle-switch">
+                                </div>
+                                <div id="my-crop-filters-container" data-label="Culture :" class="hidden sm:flex items-center gap-2 overflow-x-auto pt-2 no-scrollbar"></div>
+                                <button id="open-my-filter-modal-btn" class="sm:hidden w-full flex justify-center items-center gap-2 py-2.5 bg-slate-100 border border-slate-200 rounded-lg text-slate-700 font-medium">
+                                    <i data-lucide="filter" class="h-5 w-5"></i>Filtrer les cultures
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="field-list-container" class="p-4 lg:p-0 lg:mt-4 flex-grow space-y-3 lg:grid lg:grid-cols-2 xl:grid-cols-3 lg:gap-4 lg:space-y-0"></div>
+                </div>
+
+
+                <div id="page-shared-field-list" class="page-content-mobile-full hidden lg:p-10">
+                     <header class="bg-white/80 backdrop-blur-sm sticky top-0 z-10 p-4 border-b border-slate-200 lg:static lg:bg-transparent lg:p-0">
+                         <h1 class="text-xl font-bold text-slate-800">Parcelles partagées</h1>
+                     </header>
+                     <div class="p-4 lg:p-0 lg:mt-6">
+                        <div id="shared-filters-desktop-container" class="hidden sm:flex sm:flex-col sm:gap-3">
+                            <div id="shared-farm-filters-container" data-label="Ferme :" class="flex items-center gap-2 overflow-x-auto pb-2 -mx-4 px-4 no-scrollbar lg:mx-0 lg:px-0"></div>
+                            <div id="shared-crop-filters-container" data-label="Culture :" class="flex items-center gap-2 overflow-x-auto pb-2 -mx-4 px-4 no-scrollbar lg:mx-0 lg:px-0"></div>
+                        </div>
+                        <button id="open-shared-filter-modal-btn" class="sm:hidden w-full flex justify-center items-center gap-2 py-2 px-4 bg-white border border-slate-300 rounded-lg text-slate-700 font-medium shadow-sm"><i data-lucide="filter" class="h-5 w-5"></i>Filtrer</button>
+                     </div>
+                     <div id="shared-field-list-container" class="p-4 pt-0 lg:p-0 lg:mt-4"></div>
+                </div>
+                <div id="page-my-shares" class="page-content-mobile-full hidden lg:p-10">
+                     <header class="bg-white/80 backdrop-blur-sm sticky top-0 z-10 p-4 border-b border-slate-200 lg:static lg:bg-transparent lg:p-0">
+                         <h1 class="text-xl font-bold text-slate-800">Gestion de mes Partages</h1>
+                     </header>
+                     <div id="my-shares-list-container" class="p-4 lg:p-0 lg:mt-6"></div>
+                </div>
+                <div id="page-storage" class="page-content-mobile-full hidden lg:px-10 flex flex-col">
+                    <header id="storage-header" class="bg-white/80 backdrop-blur-sm sticky top-0 z-10 p-4 border-b border-slate-200 lg:static lg:bg-transparent lg:p-0 lg:mb-6">
+                        <div class="p-1 bg-slate-100 rounded-lg flex justify-center space-x-1 max-w-md mx-auto" id="storage-nav-container">
+                            <button id="storage-nav-personal" data-view="personal" class="storage-nav-btn text-center px-4 py-2 lg:py-3 lg:px-8 rounded-md text-sm lg:text-base font-semibold transition-colors duration-300">Mon Stockage</button>
+                            <button id="storage-nav-shared" data-view="shared" class="storage-nav-btn text-center px-4 py-2 lg:py-3 lg:px-8 rounded-md text-sm lg:text-base font-semibold transition-colors duration-300">Stockage Partagé</button>
+                            <button id="storage-nav-manure" data-view="manure" class="storage-nav-btn whitespace-nowrap text-center px-4 py-2 lg:py-3 lg:px-8 rounded-md text-sm lg:text-base font-semibold transition-colors duration-300">Fumier</button>
+                        </div>
+                    </header>
+                    <br>
+                    <div id="storage-summary-container" class="px-4 lg:px-0 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4"></div>
+                </div>
+                <div id="page-market" class="page-content-mobile-full hidden lg:p-10">
+                    <header class="bg-white/80 backdrop-blur-sm sticky top-0 z-10 p-4 border-b border-slate-200 flex justify-between items-center lg:static lg:bg-transparent lg:p-0 lg:pb-4 lg:border-b">
+                        <h1 class="text-xl lg:text-3xl font-bold text-slate-800">Indices du Marché</h1>
+                        <button id="go-to-my-sales-btn" class="bg-blue-100 text-blue-700 p-2 rounded-lg hover:bg-blue-200 transition shadow-sm" title="Gérer mes ventes" aria-label="Gérer mes ventes"><i data-lucide="dollar-sign" class="w-5 h-5"></i></button>
+                    </header>
+                    <div id="market-list-container" class="p-4 lg:p-0 lg:mt-8 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"></div>
+                </div>
+                <div id="page-sales-management" class="page-content-mobile-full hidden lg:p-10 flex flex-col">
+                    <header class="bg-white/80 backdrop-blur-sm sticky top-0 z-10 p-4 border-b border-slate-200 flex justify-between items-center lg:static lg:bg-transparent lg:p-0">
+                        <div class="flex items-center gap-2">
+                             <button id="back-to-market-btn" class="p-2 -ml-2 rounded-full hover:bg-slate-200" aria-label="Retour au marché"><i data-lucide="arrow-left"></i></button>
+                            <h1 class="text-xl lg:text-3xl font-bold text-slate-800">Gestion des Ventes</h1>
+                        </div>
+                        <button id="add-sale-btn" class="bg-green-600 text-white p-2 rounded-lg font-semibold hover:bg-green-700 transition flex items-center shadow-md" title="Ajouter une vente" aria-label="Ajouter une vente"><i data-lucide="plus" class="h-5 w-5"></i><span class="hidden md:inline ml-1.5 text-sm">Ajouter</span></button>
+                    </header>
+                    <section id="sales-summary-container" class="p-4 lg:p-0 lg:mt-6"></section>
+                    <div class="px-4 lg:px-0 mt-4">
+                        <div id="sales-year-tabs" class="border-b border-slate-200"></div>
+                    </div>
+                    <div id="sales-list-container" class="p-4 lg:p-0 lg:mt-6 space-y-4 flex-grow"></div>
+                </div>
+                <div id="page-crop-exports" class="page-content-mobile-full hidden lg:p-10">
+                    <header class="bg-white/80 backdrop-blur-sm sticky top-0 z-10 p-4 border-b border-slate-200 flex justify-between items-center lg:static lg:bg-transparent lg:p-0">
+                        <button id="back-to-storage-btn" class="p-2 -ml-2 rounded-full hover:bg-slate-200" aria-label="Retour au stockage"><i data-lucide="arrow-left"></i></button>
+                        <h1 id="crop-exports-title" class="text-xl font-bold text-slate-800 text-center flex-grow">Exports</h1>
+                        <div class="flex items-center gap-2 lg:gap-3">
+                            <button id="reset-stock-btn" class="p-2 lg:px-3 lg:py-2 bg-red-600 text-white rounded-lg font-semibold hover:bg-red-700 transition flex items-center shadow-md" title="Remettre le stock à zéro" aria-label="Remettre le stock à zéro"><i data-lucide="history" class="w-5 h-5"></i><span class="hidden lg:inline ml-1.5 text-sm">Remettre à zéro</span></button>
+                            <button id="add-export-btn" class="p-2 lg:px-3 lg:py-2 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition flex items-center shadow-md" title="Ajouter un export" aria-label="Ajouter un export"><i data-lucide="plus" class="h-5 w-5"></i><span class="hidden lg:inline ml-1.5 text-sm">Ajouter</span></button>
+                        </div>
+                    </header>
+                    <div id="crop-exports-list-container" class="p-4 lg:p-0 lg:mt-6"></div>
+                </div>
+                <div id="page-weather" class="page-content-mobile-full hidden lg:p-10"></div>
+                <div id="page-field-details" class="page-content-mobile-full hidden lg:p-10 flex flex-col">
+                     <header class="bg-white/80 backdrop-blur-sm sticky top-0 z-30 p-4 border-b border-slate-200 flex items-center lg:static lg:bg-transparent lg:p-0">
+                        <button id="back-to-list-btn" class="p-2 -ml-2 rounded-full hover:bg-slate-200" aria-label="Retour à la liste"><i data-lucide="arrow-left"></i></button>
+                        <h1 id="details-header-title" class="text-xl font-bold text-slate-800 text-center flex-grow">Détails</h1>
+                        <button id="share-field-details-btn" class="p-2 text-blue-600 hover:bg-blue-100 rounded-full" title="Partager cette parcelle" aria-label="Partager cette parcelle"><i data-lucide="share-2" class="h-6 w-6"></i></button>
+                    </header>
+                    <div class="p-4 space-y-6 lg:p-0 lg:mt-6">
+                        <section id="field-info-cards"></section>
+                        <section id="quality-details-section" class="hidden"><div id="quality-info-toggle-container" class="text-center py-2"></div><div id="quality-info-cards" class="hidden grid grid-cols-3 gap-3 mt-2"></div></section>
+                        <section id="field-notes-container"></section>
+                        <section id="trailers-section">
+                            <div class="flex justify-between items-center mb-2">
+                                <h2 class="text-lg font-semibold text-slate-700">Bennes</h2>
+                                <div class="hidden lg:flex items-center gap-2">
+                                    <button id="yield-calculator-btn" title="Calculer le rendement" class="flex items-center gap-2 text-sm bg-green-100 text-green-700 font-semibold p-2 lg:px-3 lg:py-1.5 rounded-lg hover:bg-green-200 transition shadow-sm"><i data-lucide="calculator" class="w-5 h-5"></i><span class="hidden lg:inline">Rendement</span></button>
+                                    <button id="add-file-btn" title="Ajouter un fichier" class="flex items-center gap-2 text-sm bg-indigo-100 text-indigo-700 font-semibold p-2 lg:px-3 lg:py-1.5 rounded-lg hover:bg-indigo-200 transition shadow-sm"><i data-lucide="paperclip" class="w-5 h-5"></i><span class="hidden lg:inline">Ajouter</span></button>
+                                    <button id="view-files-btn" title="Voir les fichiers" class="flex items-center gap-2 text-sm bg-slate-100 text-slate-700 font-semibold p-2 lg:px-3 lg:py-1.5 rounded-lg hover:bg-slate-200 transition shadow-sm" style="display: none;"><i data-lucide="folder-open" class="w-5 h-5"></i><span class="hidden lg:inline">Fichiers</span></button>
+                                    <button id="add-trailer-btn-desktop" class="hidden lg:flex items-center gap-2 bg-green-600 text-white font-semibold px-3 py-1.5 rounded-lg hover:bg-green-700 transition shadow-sm"><i data-lucide="plus" class="w-4 h-4"></i><span>Ajouter une benne</span></button>
+                                </div>
+                            </div>
+                            <div id="trailers-list" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4"></div>
+                        </section>
+                        <section id="field-files-section" class="mt-6 hidden">
+                            <h2 class="text-lg font-semibold text-slate-700 mb-2">Fichiers Associés</h2>
+                            <div id="field-files-list" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4"></div>
+                        </section>
+                    </div>
+                    <button id="add-trailer-btn-mobile" class="lg:hidden fixed bottom-20 right-5 z-20 h-14 w-14 bg-green-600 text-white rounded-full flex items-center justify-center shadow-lg transform hover:scale-110 transition-transform" aria-label="Ajouter une benne"><i data-lucide="plus" class="w-7 h-7"></i></button>
+                </div>
+
+                <div id="page-add-field" class="page-content-mobile-full hidden lg:p-10 flex flex-col"></div>
+                <div id="page-account" class="page-content-mobile-full hidden lg:p-10 flex flex-col"></div>
+                <div id="page-services" class="page-content-mobile-full hidden lg:p-10 flex flex-col"></div>
+                <div id="page-services-list" class="page-content-mobile-full hidden lg:p-10 flex flex-col"></div>
+                <div id="page-straw-details" class="page-content-mobile-full hidden lg:p-10 flex flex-col"></div>
+                <div id="page-expenses" class="page-content-mobile-full hidden lg:p-10 flex flex-col"></div>
+            </div>
+        </main>
+
+        <nav id="mobile-bottom-nav" class="lg:hidden fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-sm border-t border-slate-200 z-40 h-16 flex justify-around pt-3"></nav>
+    </div>
+    
+    <div id="modal-container" class="hidden fixed inset-0 z-50 flex justify-center px-2 pt-4 pb-0 lg:p-4 lg:items-center">
+        <div id="modal-backdrop" class="fixed inset-0 bg-black bg-opacity-40 transition-opacity"></div>
+        <div id="modal-content" class="relative w-full max-w-lg rounded-t-2xl bg-white p-6 shadow-xl lg:rounded-xl mt-auto lg:mt-0"></div>
+    </div>
+    
+    <div id="toast" class="hidden fixed bottom-20 sm:bottom-4 left-1/2 -translate-x-1.2 bg-slate-800 text-white py-2 px-5 rounded-full shadow-lg z-50">
+        <p id="toast-message"></p>
+    </div>
+
+    <div id="cookie-consent-banner" class="hidden fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-sm border-t border-slate-200 p-4 z-50 shadow-lg">
+        <div class="container mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p class="text-sm text-slate-700 text-center sm:text-left">Nous utilisons des cookies pour analyser le trafic et améliorer votre expérience. En cliquant sur "Accepter", vous consentez à notre utilisation des cookies.</p>
+            <div class="flex items-center gap-3 shrink-0">
+                <button id="cookie-decline-btn" class="text-sm font-semibold text-slate-600 hover:underline">Refuser</button>
+                <button id="cookie-accept-btn" class="px-5 py-2 bg-green-600 text-white font-bold rounded-full hover:bg-green-700 transition shadow">Accepter</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/shepherd.js@10.0.1/dist/js/shepherd.min.js"></script>
+
+    <!-- ▼▼▼ DÉBUT DES AJOUTS POUR LE DÉBOGAGE ▼▼▼ -->
+    <script src="debug.js"></script>
+    <!-- ▲▲▲ FIN DES AJOUTS POUR LE DÉBOGAGE ▲▲▲ -->
+
+    <!-- ── Mode démo : supprime les popups parasites ── -->
+    <script>
+      // Cookie consent: accepté d'office en mode démo
+      localStorage.setItem('recoltiq_cookie_consent', 'granted');
+      // Masque définitivement la bannière cookie
+      document.addEventListener('DOMContentLoaded', function() {
+        var banner = document.getElementById('cookie-consent-banner');
+        if (banner) banner.style.display = 'none';
+      });
+    </script>
+
+    <script type="module" src="app.js"></script>
+    
+    <script type="module">
+        import { Capacitor } from 'https://unpkg.com/@capacitor/core?module';
+        
+        if (!Capacitor.isNativePlatform() && 'serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js');
+            });
+        }
+    </script>
+
+    <!-- ▼▼▼ AJOUT D'UN AUTRE ESPION ▼▼▼ -->
+    <script>
+        console.log("✅ Balise script inline dans app.html EXÉCUTÉE !");
+    </script>
+    <!-- ▲▲▲ FIN DE L'AJOUT ▲▲▲ -->
+</body>
+</html>x

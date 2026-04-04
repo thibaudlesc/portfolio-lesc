@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support - Recolt'IQ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        details > summary::-webkit-details-marker { display: none; }
+        details[open] .details-arrow { transform: rotate(180deg); }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800">
+
+    <header class="bg-white shadow-sm">
+        <div class="container mx-auto px-4 py-4 flex items-center gap-3">
+            <img src="apple-touch-icon.png" alt="Logo Recolt'IQ" class="h-10 w-10">
+            <span class="font-bold text-2xl text-green-600">Recolt'IQ - Assistance</span>
+        </div>
+    </header>
+
+    <main class="container mx-auto max-w-3xl p-4 md:p-8">
+        <div class="bg-white p-6 md:p-10 rounded-2xl shadow-md border border-slate-200">
+            <h1 class="text-3xl font-extrabold text-slate-900 text-center mb-2">Besoin d'aide ?</h1>
+            <p class="text-center text-slate-600 mb-8">Nous sommes là pour vous aider. Trouvez des réponses à vos questions ci-dessous ou contactez-nous directement.</p>
+
+            <!-- Section Contact -->
+            <section id="contact">
+                <h2 class="text-2xl font-bold text-slate-800 mb-4 border-b pb-2">Nous Contacter</h2>
+                <p class="text-slate-700 mb-4">Pour toute question, suggestion ou pour signaler un problème, le moyen le plus rapide de nous joindre est par e-mail.</p>
+                <div class="bg-slate-100 p-4 rounded-lg flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <a href="mailto:recoltiq@gmail.com" id="support-email-link" class="font-semibold text-green-700 text-lg break-all">recoltiq@gmail.com</a>
+                    <button id="copy-email-btn" class="w-full sm:w-auto flex-shrink-0 bg-green-600 text-white font-bold px-5 py-2.5 rounded-full hover:bg-green-700 transition transform hover:scale-105 shadow-lg shadow-green-500/20 inline-flex items-center justify-center gap-2">
+                        <i data-lucide="copy" class="w-4 h-4"></i>
+                        <span>Copier l'adresse</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Section FAQ -->
+            <section id="faq" class="mt-12">
+                <h2 class="text-2xl font-bold text-slate-800 mb-6 border-b pb-2">Questions Fréquentes</h2>
+                <div class="space-y-4">
+                    <details class="group bg-slate-50 p-6 rounded-lg border border-slate-200">
+                        <summary class="flex justify-between items-center cursor-pointer font-semibold text-slate-800">
+                            L'application fonctionne-t-elle sans connexion internet ?
+                            <i data-lucide="chevron-down" class="details-arrow w-5 h-5 transition-transform duration-300"></i>
+                        </summary>
+                        <p class="mt-4 text-slate-600">Oui, Recolt'IQ est conçue pour fonctionner hors-ligne. Vous pouvez ajouter des parcelles, des bennes et des dépenses même sans réseau. Les données se synchroniseront automatiquement dès que vous retrouverez une connexion.</p>
+                    </details>
+                    <details class="group bg-slate-50 p-6 rounded-lg border border-slate-200">
+                        <summary class="flex justify-between items-center cursor-pointer font-semibold text-slate-800">
+                            Comment fonctionne l'estimation de poids ?
+                            <i data-lucide="chevron-down" class="details-arrow w-5 h-5 transition-transform duration-300"></i>
+                        </summary>
+                        <p class="mt-4 text-slate-600">Notre outil d'estimation utilise une formule qui prend en compte le volume de votre benne (en m³), la densité de la culture (PS en kg/hL), un coefficient de tassement propre à chaque culture, et le niveau de remplissage que vous indiquez. Cela vous donne une estimation fiable avant le passage sur un pont-bascule.</p>
+                    </details>
+                    <details class="group bg-slate-50 p-6 rounded-lg border border-slate-200">
+                        <summary class="flex justify-between items-center cursor-pointer font-semibold text-slate-800">
+                            Comment puis-je gérer mon abonnement Pro ?
+                            <i data-lucide="chevron-down" class="details-arrow w-5 h-5 transition-transform duration-300"></i>
+                        </summary>
+                        <p class="mt-4 text-slate-600">Vous pouvez gérer votre abonnement (modifier votre moyen de paiement, consulter vos factures ou annuler) à tout moment. Connectez-vous sur le site web, allez dans "Mon Compte" puis cliquez sur "Gérer mon abonnement". Vous serez redirigé vers notre portail de paiement sécurisé Stripe.</p>
+                    </details>
+                     <details class="group bg-slate-50 p-6 rounded-lg border border-slate-200">
+                        <summary class="flex justify-between items-center cursor-pointer font-semibold text-slate-800">
+                            Mes données sont-elles en sécurité ?
+                            <i data-lucide="chevron-down" class="details-arrow w-5 h-5 transition-transform duration-300"></i>
+                        </summary>
+                        <p class="mt-4 text-slate-600">Absolument. La sécurité de vos données est notre priorité. Elles sont chiffrées et stockées sur des serveurs sécurisés. Vous êtes le seul propriétaire de vos informations et pouvez supprimer votre compte et toutes vos données à tout moment depuis la section "Mon Compte".</p>
+                    </details>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="text-center py-8 px-4">
+        <p class="text-sm text-slate-500">&copy; 2025 Recolt'IQ. Tous droits réservés.</p>
+        <nav class="mt-2 flex justify-center gap-4 text-sm">
+            <a href="https://recolt-iq.fr" class="text-slate-600 hover:text-green-600 font-semibold">Retour au site</a>
+            <span class="text-slate-300">|</span>
+            <a href="legal.html" class="text-slate-600 hover:text-green-600 font-semibold">Mentions Légales</a>
+        </nav>
+    </footer>
+
+    <script>
+        // Initialiser les icônes
+        lucide.createIcons();
+
+        // Script pour copier l'adresse e-mail
+        const copyBtn = document.getElementById('copy-email-btn');
+        const emailLink = document.getElementById('support-email-link');
+        
+        if (copyBtn && emailLink) {
+            const originalText = copyBtn.querySelector('span').textContent;
+            copyBtn.addEventListener('click', () => {
+                navigator.clipboard.writeText(emailLink.textContent).then(() => {
+                    copyBtn.querySelector('span').textContent = 'Copié !';
+                    copyBtn.classList.add('bg-green-700');
+                    setTimeout(() => {
+                        copyBtn.querySelector('span').textContent = originalText;
+                        copyBtn.classList.remove('bg-green-700');
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Erreur de copie : ', err);
+                });
+            });
+        }
+    </script>
+
+</body>
+</html>

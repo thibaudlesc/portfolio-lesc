@@ -20,14 +20,14 @@ export const projects: Project[] = [
     },
     caseStudy: {
       problem:
-        "Élevé dans le monde agricole, j'ai vu les agriculteurs gérer la moisson avec des carnets papier, des feuilles volantes et des tableurs illisibles. Impossible de savoir en temps réel combien il reste à vendre, sur quelle parcelle, pour quelle culture.",
+        "Mon père a toujours géré la moisson avec des papiers. Des carnets, des feuilles, des tableurs qu'il était le seul à comprendre. J'ai grandi avec ça. Un jour j'ai fait un site juste pour lui. Puis j'ai réalisé que tous les agriculteurs avaient le même problème — alors j'ai tout refait pour que ça soit utilisable par n'importe qui.",
       approach:
-        "J'ai conçu l'architecture de données autour du flux réel d'une moisson : pesées en temps réel, plusieurs camions par parcelle, stock partagé entre exploitations. PWA JavaScript + Capacitor pour une distribution iOS/Android sans friction — offline-first pour les zones rurales.",
+        "L'architecture, je l'ai pensée autour du vrai flow d'une moisson — pas d'un use case théorique. Pesées en temps réel, plusieurs camions sur la même parcelle, stock partagé. Et offline-first dès le départ, parce que dans les champs il n'y a souvent pas de réseau. Ce n'est pas un détail — si l'app tombe, le travail s'arrête.",
       outcome:
-        "Application sur l'App Store, utilisée par de vrais agriculteurs en exploitation. Premier projet dev mené seul, de l'idée à la mise en ligne.",
+        "Utilisée par ma famille, les collègues et amis de mon père. Pas des milliers d'utilisateurs. Des gens réels, dans de vrais champs. Et ce que j'en retiens : il y aura toujours des bugs à corriger. Le logiciel n'est jamais fini. J'ai arrêté de chercher la version parfaite.",
       sections: [
         { type: "image",  content: { src: "/images/projects/recoltiq/C1.png",  alt: "Récolt'IQ — Mes Parcelles",          caption: "Suivi parcelle par parcelle — poids, surface, culture" } },
-        { type: "text",   content: "Le vrai défi n'était pas technique — c'était de comprendre le métier. J'ai conçu l'architecture de données autour du flux réel d'une moisson : pesées en temps réel, plusieurs camions par parcelle, stockage partagé entre exploitations." },
+        { type: "text",   content: "Je n'ai pas fait cette app pour la mettre sur mon CV. Je l'ai faite parce que mon père en avait besoin. C'est cette différence — coder pour quelqu'un de réel plutôt que pour un brief — qui m'a appris ce que ça veut dire de finir un projet." },
         { type: "metric", content: { label: "Distribution", value: "iOS", delta: "App Store + PWA" } },
         { type: "metric", content: { label: "Connectivité", value: "Offline", delta: "sync automatique" } },
         { type: "metric", content: { label: "Écrans app", value: "10+", delta: "workflow complet" } },
@@ -53,13 +53,14 @@ export const projects: Project[] = [
     },
     caseStudy: {
       problem:
-        "Avec mon groupe, on voulait faire une campagne BDE qui marque vraiment. Après beaucoup de brainstorming, on a eu l'idée : une app pour relier tous les MMI, avec plusieurs mini-apps pour créer du lien entre les étudiants — pas juste un compte Instagram de plus.",
+        "L'idée venait du groupe. Mais une idée de groupe sans quelqu'un qui s'en charge, c'est juste une idée. Je me suis dit que c'était moi. J'ai pris le concept, je l'ai retravaillé, et j'ai commencé à coder.",
       approach:
-        "J'ai développé l'app seul en Flutter + Firebase : feed social, boutique, calendrier des événements et carte de membre digitale avec fidélité. L'app est le produit phare de notre programme électoral — concrète, utilisable dès maintenant.",
+        "Flutter + Firebase, 2 semaines seul. La partie la plus longue ? Pas le code — l'App Store. Les guidelines Apple, les rejets, les allers-retours... autant de temps que tout le reste. Au final : feed social, boutique, calendrier, espace MMI, profil avec carte de membre et points de fidélité.",
       outcome:
-        "L'app tourne sur l'App Store et est déjà téléchargée par la promo. Quand on sera élus, je la finalise avec les modules manquants. Développée seul de A à Z, en parallèle des cours.",
+        "Les votes ne sont pas encore passés. Mais l'app tourne, et les retours sont bons. Pour l'instant c'est surtout une vitrine — et c'est exactement ça le but : montrer qu'on est capables de livrer quelque chose de concret avant même d'être élus.",
       sections: [
         { type: "image",  content: { src: "/images/projects/bde-mmi/C1.png", alt: "BDE MMI — Feed social", caption: "Feed social — posts, événements, actualités BDE en temps réel" } },
+        { type: "text",   content: "Une idée de groupe reste une idée jusqu'à ce que quelqu'un décide de s'en charger pour de vrai. J'ai pris cette responsabilité. Deux semaines plus tard, l'app était sur l'App Store." },
         { type: "metric", content: { label: "Modules", value: "5", delta: "Feed · Boutique · Calendrier · Espace · Profil" } },
         { type: "metric", content: { label: "Développement", value: "Solo", delta: "code intégral Flutter + Firebase" } },
         { type: "metric", content: { label: "Distribution", value: "App Store", delta: "iOS + Android Flutter" } },

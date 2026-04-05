@@ -277,13 +277,13 @@ export default function AboutPage() {
 
       {/* ── Centres d'intérêt ── */}
       <section className="section section--warm" style={{ paddingBottom: "3rem" }}>
-        <div className="container">
+        <div className="container text-center">
           <RevealOnScroll className="mb-6">
             <p className="text-sm font-semibold text-[var(--color-accent)] uppercase tracking-widest mb-2">— En dehors du code</p>
             <h2 className="text-3xl font-bold" style={{ fontFamily: "var(--font-playfair)" }}>Ce qui me ressource</h2>
           </RevealOnScroll>
           <RevealOnScroll>
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-3 justify-center">
               {interests.map((interest) => (
                 <span key={interest} className="text-sm font-medium bg-white text-[var(--color-text)] px-4 py-2 rounded-full border border-[var(--color-border)] shadow-sm">
                   {interest}
@@ -301,7 +301,7 @@ export default function AboutPage() {
             <h2 className="text-3xl font-bold mb-4" style={{ fontFamily: "var(--font-playfair)" }}>
               Un projet en tête ?
             </h2>
-            <p className="text-[var(--color-muted)] mb-8 max-w-md mx-auto">
+            <p className="text-[var(--color-muted)] mb-8 max-w-md mx-auto text-center text-balance">
               Je cherche une alternance à partir de septembre 2026. Disponible aussi pour des missions freelance ou un simple échange.
             </p>
             <div className="flex flex-wrap gap-3 justify-center">

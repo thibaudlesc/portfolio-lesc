@@ -197,7 +197,7 @@ export const projects: Project[] = [
     role:       ["Stratège com", "Créateur de contenu"],
     stack:      ["Instagram", "Photoshop", "Canva", "Content Strategy"],
     impact:     "23 posts de campagne, identité visuelle cohérente",
-    coverImage: "/images/projects/bde-mmi/campaign/banner.png",
+    coverImage: "/images/projects/bde-mmi/campaign/banner.jpg",
     featured:   true,
     status:     "done",
     links:      { live: "https://www.instagram.com/bdedetoutlemonde/?hl=fr" },

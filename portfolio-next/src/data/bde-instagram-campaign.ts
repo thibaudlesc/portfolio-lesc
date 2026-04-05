@@ -5,7 +5,7 @@
  *
  * Chaque ligne = une rangée de la grille 3 colonnes.
  * Un post avec plusieurs `slides` = carrousel (plusieurs calques dans le même post).
- * Ordre des slides = ordre des frames sur l’axe X dans Figma (gauche → droite).
+ * Ordre des slides : Figma (gauche → droite), sauf « projet-phare » inversé (carrousel de la fin vers le début).
  */
 const BASE = "/images/projects/bde-mmi/campaign";
 
@@ -27,17 +27,17 @@ export const bdeInstagramCampaignRows: BdeInstagramRow[] = [
     {
       id:     "banner",
       banner: true,
-      slides: [{ src: `${BASE}/banner.png`, alt: "BDE MMI — Affiche de campagne" }],
+      slides: [{ src: `${BASE}/banner.jpg`, alt: "BDE MMI — Affiche de campagne" }],
     },
   ],
   [
     {
       id:     "projet-phare",
       slides: [
-        { src: `${BASE}/okokok_02.jpg`, alt: "App BDE MMI — Feed" },
-        { src: `${BASE}/okokok_03.jpg`, alt: "App BDE MMI — Calendrier" },
-        { src: `${BASE}/tell_02.jpg`, alt: "App BDE MMI — Présentation" },
         { src: `${BASE}/post222_01.jpg`, alt: "Le projet phare — App BDE MMI" },
+        { src: `${BASE}/tell_02.jpg`, alt: "App BDE MMI — Présentation" },
+        { src: `${BASE}/okokok_03.jpg`, alt: "App BDE MMI — Calendrier" },
+        { src: `${BASE}/okokok_02.jpg`, alt: "App BDE MMI — Feed" },
       ],
     },
     {

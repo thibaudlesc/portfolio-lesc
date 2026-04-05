@@ -9,11 +9,14 @@ interface InstagramGridProps {
   rows: BdeInstagramRow[];
 }
 
+/** Tuiles portrait 4:6 (flux Insta récent), sans changer l’ordre ni les assets. */
+const TILE_ASPECT = "aspect-[4/6]";
+
 function cellClass(post: BdeInstagramPost): string {
   if (post.banner) return "col-span-3 aspect-[3/1]";
   if (post.colSpan === 3) return "col-span-3 aspect-[2/1] sm:aspect-[21/9]";
-  if (post.colSpan === 2) return "col-span-2 aspect-square max-sm:col-span-3 max-sm:aspect-[4/5]";
-  return "col-span-1 aspect-square";
+  if (post.colSpan === 2) return `col-span-2 ${TILE_ASPECT} max-sm:col-span-3`;
+  return `col-span-1 ${TILE_ASPECT}`;
 }
 
 export function InstagramGrid({ rows }: InstagramGridProps) {

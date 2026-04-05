@@ -36,7 +36,7 @@ export default function Home() {
                 Développeur<br />
                 <em className="text-[var(--color-accent)] not-italic">&amp; Créateur</em> Multimédia
               </h1>
-              <p className="text-lg text-[var(--color-muted)] leading-relaxed mb-8">
+              <p className="text-lg text-[var(--color-muted)] leading-relaxed mb-12 md:mb-14">
                 Apps mobiles, sites web, expériences interactives, data et vidéo — je construis des projets variés, du prototype à la mise en ligne.
               </p>
               <div className="flex flex-wrap gap-3">
@@ -66,8 +66,8 @@ export default function Home() {
                 </div>
                 {/* Floating badge */}
                 <div className="absolute -bottom-4 -left-6 bg-white rounded-2xl shadow-lg px-4 py-2.5 flex items-center gap-2 border border-[var(--color-border)]">
-                  <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                  <span className="text-sm font-semibold text-[var(--color-text)]">Alternance dès sept. 2026</span>
+                  <div className="w-2 h-2 rounded-full bg-[var(--color-accent)] animate-pulse" />
+                  <span className="text-sm font-semibold text-[var(--color-text)]">Recherche alternance · sept. 2026</span>
                 </div>
               </div>
             </RevealOnScroll>

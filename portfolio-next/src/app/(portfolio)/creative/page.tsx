@@ -12,7 +12,7 @@ const videos = [
     id: "z_Q--rcjjhA",
     title: "Clip BDE MMI",
     desc: "Réalisation, tournage et motion design — le clip officiel de la campagne BDE Montaigne.",
-    tags: ["Réalisation", "Motion Design", "After Effects"],
+    tags: ["Réalisation", "Premiere Pro", "FL Studio"],
     accent: "var(--color-accent-secondary)",
   },
   {

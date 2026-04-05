@@ -96,9 +96,12 @@ export default function Home() {
                   { label: "Publiée le jour du vote", detail: "avec 23 visuels Instagram créés en parallèle pour asseoir la campagne." },
                   { label: "Firebase temps réel", detail: "posts, sondages et billets de soirée mis à jour en direct pour toute la promo." },
                 ].map(({ label, detail }) => (
-                  <div key={label} className="flex items-start gap-3">
-                    <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)] mt-1 shrink-0" />
-                    <p className="text-sm text-[var(--color-muted)] leading-relaxed">
+                  <div key={label} className="flex gap-3 text-sm leading-relaxed">
+                    <span
+                      className="mt-[0.55em] h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-accent)]"
+                      aria-hidden
+                    />
+                    <p className="text-[var(--color-muted)] min-w-0 flex-1">
                       <span className="font-semibold text-[var(--color-text)]">{label}</span> — {detail}
                     </p>
                   </div>
@@ -156,9 +159,12 @@ export default function Home() {
                   { label: "Offline-first", detail: "fonctionne en plein champ sans réseau, sync Firebase automatique dès que le signal revient." },
                   { label: "Usage réel", detail: "adoptée par de vrais agriculteurs en exploitation, pas seulement un prototype." },
                 ].map(({ label, detail }) => (
-                  <div key={label} className="flex items-start gap-3">
-                    <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)] mt-1 shrink-0" />
-                    <p className="text-sm text-[var(--color-muted)] leading-relaxed">
+                  <div key={label} className="flex gap-3 text-sm leading-relaxed">
+                    <span
+                      className="mt-[0.55em] h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-accent)]"
+                      aria-hidden
+                    />
+                    <p className="text-[var(--color-muted)] min-w-0 flex-1">
                       <span className="font-semibold text-[var(--color-text)]">{label}</span> — {detail}
                     </p>
                   </div>

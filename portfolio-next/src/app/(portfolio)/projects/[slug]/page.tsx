@@ -59,7 +59,7 @@ const BASE = "/images/projects/bde-mmi/campaign";
 const instagramPosts: InstagramPost[] = [
   // Ligne 0 — Bannière pleine largeur
   { id: "banner", banner: true, slides: [
-    { src: `${BASE}/banner.jpg`, alt: "BDE MMI — Affiche de campagne" },
+    { src: `${BASE}/banner.png`, alt: "BDE MMI — Affiche de campagne" },
   ]},
 
   // Ligne 1 — App + programme électoral

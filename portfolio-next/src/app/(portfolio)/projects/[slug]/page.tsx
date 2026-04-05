@@ -5,7 +5,8 @@ import { projects } from "@/data/projects";
 import { PhoneCarousel } from "@/components/ui/PhoneCarousel";
 import { BrowserMockup } from "@/components/ui/BrowserMockup";
 import { PhoneLiveApp } from "@/components/ui/PhoneLiveApp";
-import { InstagramGrid, type InstagramPost } from "@/components/ui/InstagramGrid";
+import { InstagramGrid } from "@/components/ui/InstagramGrid";
+import { bdeInstagramCampaignRows } from "@/data/bde-instagram-campaign";
 import type { Metadata } from "next";
 
 interface Props {
@@ -53,49 +54,6 @@ const youtubeEmbeds: Record<string, string> = {
 const soundcloudEmbeds: Record<string, string> = {
   "clip-bde": "https://soundcloud.com/ethan-brunet-389404178/le-bde-de-tout-le-monde",
 };
-
-// ── Galerie Instagram @bdedetoutlemonde ───────────────────────────────────────
-const BASE = "/images/projects/bde-mmi/campaign";
-const instagramPosts: InstagramPost[] = [
-  // Ligne 0 — Bannière pleine largeur
-  { id: "banner", banner: true, slides: [
-    { src: `${BASE}/banner.png`, alt: "BDE MMI — Affiche de campagne" },
-  ]},
-
-  // Ligne 1 — App + programme électoral
-  { id: "projet-phare", slides: [
-    { src: `${BASE}/post222_01.jpg`, alt: "Le projet phare — App BDE MMI" },
-    { src: `${BASE}/okokok_02.jpg`,  alt: "App BDE MMI — Feed" },
-    { src: `${BASE}/okokok_03.jpg`,  alt: "App BDE MMI — Calendrier" },
-    { src: `${BASE}/tell_02.jpg`,    alt: "App BDE MMI — Présentation" },
-  ]},
-  { id: "programme-cover", slides: [
-    { src: `${BASE}/post222_02.jpg`, alt: "Le programme complet" },
-  ]},
-  { id: "programme-detail", slides: [
-    { src: `${BASE}/post222_03.jpg`,   alt: "Le programme — catégories" },
-    { src: `${BASE}/instaaaa_01.jpeg`, alt: "Créativité & Formation" },
-    { src: `${BASE}/instaaaa_02.jpeg`, alt: "Gaming & Services & Quotidien" },
-    { src: `${BASE}/instaaaa_03.jpeg`, alt: "Numérique & Solidarité & Écologie" },
-  ]},
-  // Ligne 2 — Portrait du fondateur/leader
-  { id: "fondateur-portrait", slides: [
-    { src: `${BASE}/founder-portrait.png`, alt: "Portrait du leader BDE" },
-  ]},
-
-  // Ligne 3 — Membres de la liste
-  { id: "membres-gauche", slides: [
-    { src: `${BASE}/offffffff_02.jpg`, alt: "Rémi & Milan" },
-    { src: `${BASE}/offffffff_03.jpg`, alt: "Othman & Yanis" },
-  ]},
-  { id: "membres-mil", slides: [
-    { src: `${BASE}/mil_02.jpeg`, alt: "Milan" },
-  ]},
-  { id: "membres-droite", slides: [
-    { src: `${BASE}/33_02.jpeg`, alt: "Membres de la liste" },
-    { src: `${BASE}/33_03.jpeg`, alt: "Membres de la liste" },
-  ]},
-];
 
 export default async function ProjectPage({ params }: Props) {
   const { slug } = await params;
@@ -294,7 +252,7 @@ export default async function ProjectPage({ params }: Props) {
               </a>
             </div>
             <div className="overflow-hidden rounded-2xl border border-[var(--color-border)]">
-              <InstagramGrid posts={instagramPosts} />
+              <InstagramGrid rows={bdeInstagramCampaignRows} />
             </div>
           </div>
         </section>

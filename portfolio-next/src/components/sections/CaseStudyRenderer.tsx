@@ -97,6 +97,16 @@ function SplitBlock({ left, right }: { left: string; right: string }) {
   );
 }
 
+// ─── Section wrapper with label ───────────────────────────────────────────────
+
+function SectionLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <p className="font-mono text-[10px] text-[var(--color-muted)] tracking-[0.3em] uppercase mb-6">
+      {children}
+    </p>
+  );
+}
+
 // ─── Metrics row (groups consecutive metric sections) ─────────────────────────
 
 function MetricsRow({ metrics }: { metrics: MetricBlock[] }) {

@@ -1,8 +1,11 @@
 /**
  * Grille type fil Instagram @bdedetoutlemonde (campagnes BDE).
+ * Aligné sur le fichier Figma « portfolio » (frames 1080×1440 + bannière) :
+ * https://www.figma.com/design/Cwt9RLHF4H2HunJSgEE15Y/portfolio?node-id=0-1
+ *
  * Chaque ligne = une rangée de la grille 3 colonnes.
- * Un post avec plusieurs `slides` = carrousel (comme dans Figma : plusieurs visuels
- * dans la même case, sans déborder sur les colonnes voisines).
+ * Un post avec plusieurs `slides` = carrousel (plusieurs calques dans le même post).
+ * Ordre des slides = ordre des frames sur l’axe X dans Figma (gauche → droite).
  */
 const BASE = "/images/projects/bde-mmi/campaign";
 
@@ -31,10 +34,10 @@ export const bdeInstagramCampaignRows: BdeInstagramRow[] = [
     {
       id:     "projet-phare",
       slides: [
-        { src: `${BASE}/post222_01.jpg`, alt: "Le projet phare — App BDE MMI" },
         { src: `${BASE}/okokok_02.jpg`, alt: "App BDE MMI — Feed" },
         { src: `${BASE}/okokok_03.jpg`, alt: "App BDE MMI — Calendrier" },
         { src: `${BASE}/tell_02.jpg`, alt: "App BDE MMI — Présentation" },
+        { src: `${BASE}/post222_01.jpg`, alt: "Le projet phare — App BDE MMI" },
       ],
     },
     {
@@ -53,17 +56,10 @@ export const bdeInstagramCampaignRows: BdeInstagramRow[] = [
   ],
   [
     {
-      id:      "fondateur-portrait",
-      colSpan: 3,
-      slides:  [{ src: `${BASE}/founder-portrait.png`, alt: "Portrait du leader BDE" }],
-    },
-  ],
-  [
-    {
       id:     "membres-gauche",
       slides: [
-        { src: `${BASE}/offffffff_02.jpg`, alt: "Rémi & Milan" },
         { src: `${BASE}/offffffff_03.jpg`, alt: "Othman & Yanis" },
+        { src: `${BASE}/offffffff_02.jpg`, alt: "Rémi & Milan" },
       ],
     },
     {

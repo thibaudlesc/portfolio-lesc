@@ -212,6 +212,7 @@ export default async function ProjectPage({ params }: Props) {
               <PhoneLiveApp
                 url={slug === "bde-mmi" ? "/demo-bde-mmi/index.html" : undefined}
                 label={slug === "bde-mmi" ? "BDE MMI — démo interactive" : "Récolt'IQ — maquette interactive"}
+                appStoreUrl={slug === "bde-mmi" ? "https://apps.apple.com/fr/app/bde-mmi/id6760981399" : undefined}
               />
               {carousel && (
                 <PhoneCarousel screens={carousel} accentColor={accentColor} />

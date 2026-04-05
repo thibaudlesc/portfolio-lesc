@@ -1,9 +1,13 @@
 "use client";
 
+import { useEffect, useMemo, useState } from "react";
+
 interface PhoneLiveAppProps {
   /** Maquette locale (source du repo), ex. /demo-app/app.html — embed=1 évite GPS / pop-ups navigateur */
   url?: string;
   label?: string;
+  /** Lien App Store pour le repli mobile (démo Flutter). */
+  appStoreUrl?: string;
 }
 
 const APP_WIDTH = 390;
@@ -19,8 +23,37 @@ function iframeSrc(url: string) {
   return url.includes("?") ? `${url}&embed=1` : `${url}?embed=1`;
 }
 
-export function PhoneLiveApp({ url = DEFAULT_DEMO_URL, label = "Maquette interactive" }: PhoneLiveAppProps) {
+function isFlutterBdeMmi(url: string) {
+  return url.includes("demo-bde-mmi");
+}
+
+export function PhoneLiveApp({
+  url = DEFAULT_DEMO_URL,
+  label = "Maquette interactive",
+  appStoreUrl,
+}: PhoneLiveAppProps) {
   const src = iframeSrc(url);
+  const [narrow, setNarrow] = useState(false);
+
+  const openDemoHref = useMemo(() => {
+    if (typeof window === "undefined") return "";
+    try {
+      return new URL(src, window.location.origin).href;
+    } catch {
+      return src;
+    }
+  }, [src]);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    const apply = () => setNarrow(mq.matches);
+    apply();
+    mq.addEventListener("change", apply);
+    return () => mq.removeEventListener("change", apply);
+  }, []);
+
+  const showMobileFlutterFallback = narrow && isFlutterBdeMmi(url);
+
   return (
     <div className="flex flex-col items-center gap-5 py-2">
       <div
@@ -38,7 +71,6 @@ export function PhoneLiveApp({ url = DEFAULT_DEMO_URL, label = "Maquette interac
           className="overflow-hidden bg-white"
           style={{ borderRadius: 14, width: FRAME_W, height: FRAME_H, position: "relative" }}
         >
-          {/* Dynamic Island */}
           <div
             style={{
               position: "absolute",
@@ -53,19 +85,52 @@ export function PhoneLiveApp({ url = DEFAULT_DEMO_URL, label = "Maquette interac
               pointerEvents: "none",
             }}
           />
-          <iframe
-            src={src}
-            title={label}
-            scrolling="yes"
-            className="border-0"
-            style={{
-              width: APP_WIDTH,
-              height: APP_HEIGHT,
-              transform: `scale(${SCALE})`,
-              transformOrigin: "0 0",
-              pointerEvents: "auto",
-            }}
-          />
+
+          {showMobileFlutterFallback ? (
+            <div
+              className="absolute inset-0 z-[5] flex flex-col items-stretch justify-center gap-3 p-4 text-center"
+              style={{ paddingTop: 36 }}
+            >
+              <p className="text-[11px] font-semibold leading-snug text-[var(--color-text)]">
+                La démo web Flutter ne tourne pas bien dans l’aperçu sur mobile (Safari / iframe).
+              </p>
+              <p className="text-[10px] leading-relaxed text-[var(--color-muted)]">
+                Ouvre la démo en plein écran ou télécharge l’app.
+              </p>
+              <a
+                href={openDemoHref || src}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-full bg-[var(--color-accent-secondary)] px-3 py-2 text-[11px] font-semibold text-white hover:opacity-90"
+              >
+                Ouvrir la démo ↗
+              </a>
+              {appStoreUrl && (
+                <a
+                  href={appStoreUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-2 text-[11px] font-semibold text-[var(--color-text)] hover:border-[var(--color-accent)]"
+                >
+                  App Store
+                </a>
+              )}
+            </div>
+          ) : (
+            <iframe
+              src={src}
+              title={label}
+              scrolling="yes"
+              className="border-0"
+              style={{
+                width: APP_WIDTH,
+                height: APP_HEIGHT,
+                transform: `scale(${SCALE})`,
+                transformOrigin: "0 0",
+                pointerEvents: "auto",
+              }}
+            />
+          )}
         </div>
       </div>
 

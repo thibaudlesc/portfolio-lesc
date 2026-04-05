@@ -132,7 +132,11 @@ export default function Home() {
 
             {/* Live demo only */}
             <RevealOnScroll delay={100} className="shrink-0">
-              <PhoneLiveApp url="/demo-bde-mmi/index.html" label="BDE MMI — démo interactive" />
+              <PhoneLiveApp
+                url="/demo-bde-mmi/index.html"
+                label="BDE MMI — démo interactive"
+                appStoreUrl="https://apps.apple.com/fr/app/bde-mmi/id6760981399"
+              />
             </RevealOnScroll>
           </div>
         </div>

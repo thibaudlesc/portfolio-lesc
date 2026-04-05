@@ -185,8 +185,6 @@ export const projects: Project[] = [
       sections: [
         { type: "image", content: { src: "/images/projects/clip-bde/cover.svg", alt: "Clip BDE MMI", caption: "Réalisation — Premiere Pro + FL Studio" } },
         { type: "text",  content: "Un projet qui m'a permis de maîtriser la chaîne complète de production vidéo : de la captation au export final, en passant par le montage rythmé et les animations d'habillage." },
-        { type: "metric", content: { label: "Durée", value: "3 min", delta: "Clip complet + générique" } },
-        { type: "metric", content: { label: "Diffusion", value: "Promo", delta: "MMI Montaigne entière" } },
       ],
     },
   },

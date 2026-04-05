@@ -35,7 +35,11 @@ const covers: Record<string, CoverConfig> = {
     src:            "/images/projects/musba/cover.jpg",
     objectPosition: "center 40%",
   },
-  "bde-iq": { type: "browser", url: "https://bde-iq.web.app/" },
+  "bde-iq": {
+    type:           "image",
+    src:            "/images/projects/bde-iq/concept-landing.png",
+    objectPosition: "center top",
+  },
 };
 
 // ── App cover component ──────────────────────────────────────────────────────

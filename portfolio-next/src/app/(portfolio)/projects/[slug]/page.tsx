@@ -44,7 +44,6 @@ const phoneCarousels: Record<string, { src: string; alt: string }[]> = {
 
 const browserMockups: Record<string, string> = {
   "musee-ba-bordeaux": "https://projetmmimusbagrp4.netlify.app/",
-  "bde-iq": "https://bde-iq.web.app/",
 };
 
 const youtubeEmbeds: Record<string, string> = {
@@ -107,6 +106,14 @@ export default async function ProjectPage({ params }: Props) {
           </h1>
           <p className="text-xl text-[var(--color-muted)] leading-relaxed mb-6 max-w-2xl">{project.tagline}</p>
 
+          {slug === "bde-iq" && (
+            <p className="text-sm text-[var(--color-text)] border-l-4 border-amber-400 bg-amber-50/80 pl-4 pr-4 py-3 rounded-r-xl mb-6 max-w-2xl leading-relaxed">
+              <strong>Brainstorming</strong> : pas encore de nom définitif ni de livrable figé — le grand visuel est une{' '}
+              <strong>illustration d’idée</strong>. Le bouton « Voir la vitrine » ouvre le{' '}
+              <strong>site Firebase</strong> réel du BDE IQ (premier jet).
+            </p>
+          )}
+
           <div className="flex flex-wrap gap-2 mb-8">
             {project.stack.map((s) => (
               <span key={s} className="text-sm bg-white/80 text-[var(--color-muted)] px-3 py-1.5 rounded-full border border-[var(--color-border)]">
@@ -120,7 +127,7 @@ export default async function ProjectPage({ params }: Props) {
               {project.links.live && (
                 <a href={project.links.live} target="_blank" rel="noopener noreferrer"
                   className="bg-[var(--color-accent)] text-white font-semibold px-5 py-2.5 rounded-full text-sm hover:opacity-90 transition-opacity shadow-md shadow-orange-100">
-                  Voir le site ↗
+                  {slug === "bde-iq" ? "Voir la vitrine Firebase ↗" : "Voir le site ↗"}
                 </a>
               )}
               {project.links.appStore && (
@@ -218,6 +225,36 @@ export default async function ProjectPage({ params }: Props) {
                 <PhoneCarousel screens={carousel} accentColor={accentColor} />
               )}
             </div>
+          </div>
+        </section>
+      )}
+
+      {/* ── BDE IQ : maquette concept (pas l’iframe du site) ── */}
+      {slug === "bde-iq" && (
+        <section className="section section--warm">
+          <div className="container max-w-5xl space-y-5">
+            <div className="rounded-xl border border-amber-200/80 bg-amber-50/90 px-4 py-3 text-sm text-amber-950">
+              <p className="font-semibold text-amber-950 mb-1">Illustration d’idée — pas une capture du site</p>
+              <p className="text-amber-900/95 leading-relaxed">
+                Landing et mockup téléphone : direction produit envisagée pour une app BDE sur mesure. Le site hébergé sur{' '}
+                <span className="whitespace-nowrap">Firebase</span> reste accessible via « Voir la vitrine Firebase » ci-dessus.
+              </p>
+            </div>
+            <figure className="overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[#faf9f7] shadow-sm">
+              <div className="relative w-full aspect-[16/10] min-h-[200px]">
+                <Image
+                  src="/images/projects/bde-iq/concept-landing.png"
+                  alt="Maquette — app BDE sur mesure, landing et aperçu mobile (illustration)"
+                  fill
+                  className="object-contain object-top"
+                  sizes="(max-width: 1024px) 100vw, 1024px"
+                  priority
+                />
+              </div>
+              <figcaption className="border-t border-[var(--color-border)] px-4 py-3 text-xs text-[var(--color-muted)]">
+                Visuel de brainstorming — nom du produit et périmètre encore ouverts.
+              </figcaption>
+            </figure>
           </div>
         </section>
       )}

@@ -242,22 +242,26 @@ export const projects: Project[] = [
 
   {
     slug:       "bde-iq",
-    title:      "Site BDE IQ",
-    tagline:    "Vitrine du BDE IQ hébergée sur Firebase",
+    title:      "BDE IQ — concept app & vitrine",
+    tagline:
+      "Brainstorming produit : pas encore de nom définitif — l’image est une illustration d’idée. Le lien « Voir le site » ouvre la vitrine Firebase actuelle.",
     year:       2026,
-    role:       ["Développeur Web"],
-    stack:      ["Web", "Firebase", "HTML/CSS"],
-    impact:     "Vitrine association en ligne",
-    coverImage: "/images/projects/bde-iq-cover.png",
+    role:       ["Développeur Web", "Produit"],
+    stack:      ["Concept", "Firebase", "Web"],
+    impact:     "Idée structurée, vitrine en ligne (premier jet)",
+    coverImage: "/images/projects/bde-iq/concept-landing.png",
     featured:   false,
     status:     "wip",
     links: {
       live: "https://bde-iq.web.app/",
     },
     caseStudy: {
-      problem:  "Le BDE IQ n'avait pas de présence web propre pour ses campagnes et événements.",
-      approach: "Site vitrine hébergé sur Firebase Hosting, enrichi au fil des campagnes.",
-      outcome:  "En cours d'enrichissement.",
+      problem:
+        "Beaucoup de BDE n’ont ni app ni présence web à la hauteur de ce qu’attendent les étudiants. Ce projet part d’une idée : une app native sur mesure (feed, calendrier, boutique, fidélité) — encore en réflexion, sans nom figé ni cahier des charges final.",
+      approach:
+        "Brainstorming et maquettage pour cadrer l’offre « app BDE sur mesure ». En parallèle, une vitrine Firebase existe déjà pour l’association BDE IQ : premier jet, évolutif.",
+      outcome:
+        "L’illustration sur la page projet matérialise la direction produit envisagée ; le site en ligne reste la vitrine réelle à ce jour.",
       sections: [],
     },
   },

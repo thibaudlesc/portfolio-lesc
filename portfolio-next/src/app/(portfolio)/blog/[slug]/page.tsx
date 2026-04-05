@@ -94,13 +94,18 @@ export default async function BlogPostPage({ params }: Props) {
             })}
           </article>
 
-          <div className="mt-16 pt-8 border-t border-[var(--color-border)] flex items-center justify-between">
+          <div className="mt-16 pt-8 border-t border-[var(--color-border)] flex flex-wrap items-center justify-between gap-4">
             <Link href="/blog" className="text-sm text-[var(--color-muted)] hover:text-[var(--color-accent)] transition-colors font-semibold">
               ← Tous les articles
             </Link>
-            <Link href="/projects/recoltiq" className="text-sm font-semibold text-[var(--color-accent)] hover:opacity-70 transition-opacity">
-              Voir le projet →
-            </Link>
+            {post.relatedProjectSlug && (
+              <Link
+                href={`/projects/${post.relatedProjectSlug}`}
+                className="text-sm font-semibold text-[var(--color-accent)] hover:opacity-70 transition-opacity"
+              >
+                Voir le projet →
+              </Link>
+            )}
           </div>
         </div>
       </section>
